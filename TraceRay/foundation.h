@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 
+const double EPS = 1e-8;
 
 class fvector3D {
 public:
@@ -34,5 +35,20 @@ private:
     double v[3];
 };
 
+
+class Ray {
+public:
+    Ray();
+    Ray(const fvector3D &s, const fvector3D &d);
+    
+    fvector3D getSource() const;
+    void setSource(const fvector3D &s);
+
+    fvector3D getDirection() const;
+    void setDirection(const fvector3D &d);
+    
+private:
+    fvector3D source, direction;
+};
 
 #endif /* defined(__TraceRay__foundation__) */

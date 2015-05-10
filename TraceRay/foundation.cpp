@@ -83,4 +83,26 @@ fvector3D fvector3D::crossProduct(const fvector3D &y) const {
     return z;
 }
 
+Ray::Ray() : direction(1, 0, 0) {};
 
+Ray::Ray(const fvector3D &s, const fvector3D &d) {
+    setSource(s);
+    setDirection(d);
+}
+
+fvector3D Ray::getSource() const {
+    return source;
+}
+
+void Ray::setSource(const fvector3D &s) {
+    source = s;
+}
+
+fvector3D Ray::getDirection() const {
+    return direction;
+}
+
+void Ray::setDirection(const fvector3D &d) {
+    assert(d.length() > EPS);
+    direction = d.multiply(1.0 / d.length());
+}
