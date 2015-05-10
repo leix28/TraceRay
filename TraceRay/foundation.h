@@ -26,6 +26,7 @@ public:
     fvector3D add(const fvector3D &y) const;
     fvector3D subtract(const fvector3D &y) const;
     fvector3D multiply(const double y) const;
+    fvector3D multiply(const fvector3D y) const;
     double dotProduct(const fvector3D &y) const;
     fvector3D crossProduct(const fvector3D &y) const;
     
