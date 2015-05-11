@@ -120,6 +120,3 @@ fvector3D Ray::getPoint(const double t) const {
     return getSource().add(getDirection().multiply(t));
 }
 
-Color::Color() {}
-
-Color::Color(double r, double g, double b) : v(r, g, b) {}

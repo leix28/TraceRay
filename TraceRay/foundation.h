@@ -57,11 +57,4 @@ private:
     fvector3D source, direction;
 };
 
-
-class Color {
-    fvector3D v;
-public:
-    Color();
-    Color(double r, double g, double b);
-};
 #endif /* defined(__TraceRay__foundation__) */
