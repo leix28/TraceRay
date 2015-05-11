@@ -7,8 +7,6 @@
 //
 
 #include "foundation.h"
-#include <cassert>
-#include <cmath>
 
 const double EPS = 1e-6;
 

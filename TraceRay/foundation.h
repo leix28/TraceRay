@@ -10,6 +10,8 @@
 #define __TraceRay__foundation__
 
 #include <stdio.h>
+#include <cassert>
+#include <cmath>
 
 extern const double EPS;
 
