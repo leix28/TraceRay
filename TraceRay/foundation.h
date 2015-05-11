@@ -13,6 +13,8 @@
 
 extern const double EPS;
 
+double sqr(const double x);
+
 class fvector3D {
 public:
     fvector3D();

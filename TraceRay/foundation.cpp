@@ -12,6 +12,10 @@
 
 const double EPS = 1e-6;
 
+double sqr(const double x) {
+    return x * x;
+}
+
 fvector3D::fvector3D() {
     v[0] = v[1] = v[2] = 0;
 }
