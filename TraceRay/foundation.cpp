@@ -38,6 +38,10 @@ double fvector3D::length() const {
     return sqrt(this->dotProduct(*this));
 }
 
+fvector3D fvector3D::normalize() const {
+    assert(length() > EPS);
+    return multiply(1.0 / length());
+}
 
 fvector3D fvector3D::add(const fvector3D &y) const {
     fvector3D z;
@@ -106,5 +110,5 @@ fvector3D Ray::getDirection() const {
 
 void Ray::setDirection(const fvector3D &d) {
     assert(d.length() > EPS);
-    direction = d.multiply(1.0 / d.length());
+    direction = d.normalize();
 }

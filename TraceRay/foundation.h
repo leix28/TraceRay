@@ -23,6 +23,7 @@ public:
     void set(const int index, const double value);
     
     double length() const;
+    fvector3D normalize() const;
     
     fvector3D add(const fvector3D &y) const;
     fvector3D subtract(const fvector3D &y) const;
