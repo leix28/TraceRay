@@ -30,6 +30,7 @@
 		C2516DF61AFFA09A008E336D /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2516DF41AFFA09A008E336D /* core.cpp */; };
 		C2861F161B00CD3D00A3A5DB /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2861F141B00CD3D00A3A5DB /* camera.cpp */; };
 		C2861F191B00CDCC00A3A5DB /* sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2861F171B00CDCC00A3A5DB /* sphere.cpp */; };
+		C2861F1C1B00D7B700A3A5DB /* render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2861F1A1B00D7B700A3A5DB /* render.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +74,8 @@
 		C2861F151B00CD3D00A3A5DB /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		C2861F171B00CDCC00A3A5DB /* sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere.cpp; sourceTree = "<group>"; };
 		C2861F181B00CDCC00A3A5DB /* sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sphere.h; sourceTree = "<group>"; };
+		C2861F1A1B00D7B700A3A5DB /* render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render.cpp; sourceTree = "<group>"; };
+		C2861F1B1B00D7B700A3A5DB /* render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,14 +128,16 @@
 			isa = PBXGroup;
 			children = (
 				C213BD8D1AFE72C5002EA620 /* main.cpp */,
+				C213BDBA1AFE759A002EA620 /* foundation.h */,
 				C213BDB91AFE759A002EA620 /* foundation.cpp */,
 				C2516DF41AFFA09A008E336D /* core.cpp */,
 				C2861F171B00CDCC00A3A5DB /* sphere.cpp */,
 				C2861F181B00CDCC00A3A5DB /* sphere.h */,
 				C2861F141B00CD3D00A3A5DB /* camera.cpp */,
+				C2861F1A1B00D7B700A3A5DB /* render.cpp */,
+				C2861F1B1B00D7B700A3A5DB /* render.h */,
 				C2861F151B00CD3D00A3A5DB /* camera.h */,
 				C2516DF51AFFA09A008E336D /* core.h */,
-				C213BDBA1AFE759A002EA620 /* foundation.h */,
 			);
 			path = TraceRay;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 				C2861F161B00CD3D00A3A5DB /* camera.cpp in Sources */,
 				C213BDBB1AFE759A002EA620 /* foundation.cpp in Sources */,
 				C213BD8E1AFE72C5002EA620 /* main.cpp in Sources */,
+				C2861F1C1B00D7B700A3A5DB /* render.cpp in Sources */,
 				C2516DF61AFFA09A008E336D /* core.cpp in Sources */,
 				C2861F191B00CDCC00A3A5DB /* sphere.cpp in Sources */,
 			);
