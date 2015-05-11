@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include "foundation.h"
 
+extern const double EPS;
+
 class Node {
     fvector3D position;
     
@@ -19,5 +21,7 @@ public:
     fvector3D getPosition() const;
     void setPosition(const fvector3D &p);
 };
+
+
 
 #endif /* defined(__TraceRay__core__) */

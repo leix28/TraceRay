@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 
-const double EPS = 1e-8;
+extern const double EPS;
 
 class fvector3D {
 public:

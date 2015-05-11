@@ -10,6 +10,8 @@
 #include <cassert>
 #include <cmath>
 
+const double EPS = 1e-6;
+
 fvector3D::fvector3D() {
     v[0] = v[1] = v[2] = 0;
 }
