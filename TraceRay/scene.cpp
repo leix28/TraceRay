@@ -30,3 +30,11 @@ fvector3D Scene::getNormalVector(const fvector3D &p) const {
     }
     assert(0);
 }
+
+Attribute Scene::getAttribute(const fvector3D &p) const {
+    for (auto &node : nodes) {
+        if (node->isSurface(p))
+            return node->getAttribute();
+    }
+    assert(0);
+}

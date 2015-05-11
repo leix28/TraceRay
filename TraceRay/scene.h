@@ -20,6 +20,7 @@ public:
     void addNode(const std::shared_ptr<Node> &node);
     double getCollise(const Ray &r) const;
     fvector3D getNormalVector(const fvector3D &p) const;
+    Attribute getAttribute(const fvector3D &p) const;
 };
 
 #endif /* defined(__TraceRay__scene__) */
