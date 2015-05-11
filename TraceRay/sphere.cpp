@@ -12,9 +12,10 @@ SphereNode::SphereNode() {
     setRadius(1.0);
 }
 
-SphereNode::SphereNode(const fvector3D &pos, const double r) {
+SphereNode::SphereNode(const fvector3D &pos, const double r, const Attribute &a) {
     setPosition(pos);
     setRadius(r);
+    setAttribute(a);
 }
 
 

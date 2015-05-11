@@ -17,7 +17,7 @@ class SphereNode : public Node {
     
 public:
     SphereNode();
-    SphereNode(const fvector3D &pos, const double r);
+    SphereNode(const fvector3D &pos, const double r, const Attribute &a);
     
     double getRadius() const;
     void setRadius(const double r);
