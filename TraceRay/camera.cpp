@@ -20,6 +20,10 @@ Camera::Camera(const fvector3D &pos, const fvector3D &c, const fvector3D &w, con
     setResolution(r);
 }
 
+fvector3D Camera::getPosition() const {
+    return position;
+}
+
 fvector3D Camera::getFilmCenter() const {
     return center;
 }
@@ -34,6 +38,10 @@ fvector3D Camera::getFilmWidth() const {
 
 std::pair<int, int> Camera::getResolution() const {
     return pixel;
+}
+
+void Camera::setPosition(const fvector3D &p) {
+    position = p;
 }
 
 void Camera::setFilm(const fvector3D &c, const fvector3D &w, const fvector3D &h) {
