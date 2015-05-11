@@ -112,3 +112,8 @@ void Ray::setDirection(const fvector3D &d) {
     assert(d.length() > EPS);
     direction = d.normalize();
 }
+
+fvector3D Ray::getPoint(const double t) const {
+    assert(t >= 0);
+    return getSource().add(getDirection().multiply(t));
+}

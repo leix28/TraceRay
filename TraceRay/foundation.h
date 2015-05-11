@@ -48,6 +48,7 @@ public:
     fvector3D getDirection() const;
     void setDirection(const fvector3D &d);
     
+    fvector3D getPoint(const double t) const;
 private:
     fvector3D source, direction;
 };
