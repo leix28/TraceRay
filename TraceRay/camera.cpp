@@ -14,9 +14,9 @@ Camera::Camera() {
     setResolution(0.01);
 }
 
-Camera::Camera(const fvector3D &pos, const fvector3D &c, const fvector3D &w, const fvector3D &h, const double r) {
+Camera::Camera(const fvector3D &pos, const fvector3D &c, const fvector3D &h, const fvector3D &w, const double r) {
     setPosition(pos);
-    setFilm(c, w, h);
+    setFilm(c, h, w);
     setResolution(r);
 }
 
@@ -44,7 +44,7 @@ void Camera::setPosition(const fvector3D &p) {
     position = p;
 }
 
-void Camera::setFilm(const fvector3D &c, const fvector3D &w, const fvector3D &h) {
+void Camera::setFilm(const fvector3D &c, const fvector3D &h, const fvector3D &w) {
     assert(fabs(w.dotProduct(h)) < EPS);
     center = c;
     width = w;
@@ -53,16 +53,16 @@ void Camera::setFilm(const fvector3D &c, const fvector3D &w, const fvector3D &h)
 
 void Camera::setResolution(const double r) {
     resolution = r;
-    pixel.first = width.length() / resolution;
-    pixel.second = height.length() / resolution;
+    pixel.first = height.length() / resolution;
+    pixel.second = width.length() / resolution;
     assert(pixel.first > 0 && pixel.second > 0);
 }
 
 Ray Camera::getRay(int x, int y) const {
     assert(0 <= x && x < pixel.first && 0 <= y && y < pixel.second);
     
-    fvector3D dx = width.multiply((double)x / pixel.first).subtract(width.multiply(0.5));
-    fvector3D dy = height.multiply((double)y / pixel.second).subtract(height.multiply(0.5));
-    fvector3D p = center.add(dx).add(dy);
+    fvector3D dh = height.multiply((double)x / pixel.first).subtract(height.multiply(0.5));
+    fvector3D dw = width.multiply((double)y / pixel.second).subtract(width.multiply(0.5));
+    fvector3D p = center.add(dh).add(dw);
     return Ray(getPosition(), p.subtract(getPosition()));
 }
