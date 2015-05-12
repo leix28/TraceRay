@@ -81,9 +81,9 @@ double fvector3D::dotProduct(const fvector3D &y) const {
 
 fvector3D fvector3D::crossProduct(const fvector3D &y) const {
     fvector3D z;
-    z.set(0, get(1) * y.get(2) - get(2) - y.get(1));
-    z.set(1, get(2) * y.get(0) - get(0) - y.get(2));
-    z.set(2, get(0) * y.get(1) - get(1) - y.get(0));
+    z.set(0, get(1) * y.get(2) - get(2) * y.get(1));
+    z.set(1, get(2) * y.get(0) - get(0) * y.get(2));
+    z.set(2, get(0) * y.get(1) - get(1) * y.get(0));
     return z;
 }
 

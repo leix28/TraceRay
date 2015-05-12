@@ -130,19 +130,19 @@
 		C213BD8C1AFE72C5002EA620 /* TraceRay */ = {
 			isa = PBXGroup;
 			children = (
-				C213BD8D1AFE72C5002EA620 /* main.cpp */,
-				C213BDBA1AFE759A002EA620 /* foundation.h */,
-				C213BDB91AFE759A002EA620 /* foundation.cpp */,
-				C2516DF41AFFA09A008E336D /* core.cpp */,
-				C2861F171B00CDCC00A3A5DB /* sphere.cpp */,
-				C2861F181B00CDCC00A3A5DB /* sphere.h */,
 				C2861F141B00CD3D00A3A5DB /* camera.cpp */,
+				C2861F151B00CD3D00A3A5DB /* camera.h */,
+				C2516DF41AFFA09A008E336D /* core.cpp */,
+				C2516DF51AFFA09A008E336D /* core.h */,
+				C213BDB91AFE759A002EA620 /* foundation.cpp */,
+				C213BDBA1AFE759A002EA620 /* foundation.h */,
+				C213BD8D1AFE72C5002EA620 /* main.cpp */,
 				C2861F1A1B00D7B700A3A5DB /* render.cpp */,
+				C2861F1B1B00D7B700A3A5DB /* render.h */,
 				C2861F1D1B00DA9500A3A5DB /* scene.cpp */,
 				C2861F1E1B00DA9500A3A5DB /* scene.h */,
-				C2861F1B1B00D7B700A3A5DB /* render.h */,
-				C2861F151B00CD3D00A3A5DB /* camera.h */,
-				C2516DF51AFFA09A008E336D /* core.h */,
+				C2861F171B00CDCC00A3A5DB /* sphere.cpp */,
+				C2861F181B00CDCC00A3A5DB /* sphere.h */,
 			);
 			path = TraceRay;
 			sourceTree = "<group>";
