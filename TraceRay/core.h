@@ -15,20 +15,18 @@
 extern const double EPS;
 
 class Attribute {
-    fvector3D color;
-    double diffuse, specular;
-    bool light;
+    fvector3D light;
+    fvector3D diffuse, specular;
 public:
     Attribute();
-    Attribute(const double d, const double s, const fvector3D &c, const bool l);
-    double getDiffuse() const;
-    double getSpecular() const;
-    fvector3D getColor() const;
-    bool isLight() const;
+    Attribute(const fvector3D &d, const fvector3D &s, const fvector3D &c);
+    fvector3D getDiffuse() const;
+    fvector3D getSpecular() const;
+    fvector3D getLight() const;
     
-    void setDiffuse(const double d);
-    void setSpecular(const double s);
-    void setColor(const fvector3D &c);
+    void setDiffuse(const fvector3D &d);
+    void setSpecular(const fvector3D &s);
+    void setLight(const fvector3D &l);
 };
 
 class Node {

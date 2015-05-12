@@ -12,40 +12,36 @@ Attribute::Attribute() {
     diffuse = specular = 0;
 }
 
-Attribute::Attribute(const double d, const double s, const fvector3D &c, const bool l) {
+Attribute::Attribute(const fvector3D &d, const fvector3D &s, const fvector3D &l) {
     
-    diffuse = d;
-    specular = s;
-    color = c;
-    light = l;
+    setDiffuse(d);
+    setSpecular(s);
+    setLight(l);
 }
 
-double Attribute::getDiffuse() const {
+fvector3D Attribute::getDiffuse() const {
     return diffuse;
 }
 
-double Attribute::getSpecular() const {
+fvector3D Attribute::getSpecular() const {
     return specular;
 }
 
-fvector3D Attribute::getColor() const {
-    return color;
-}
-
-bool Attribute::isLight() const {
+fvector3D Attribute::getLight() const {
     return light;
 }
 
-void Attribute::setDiffuse(const double d) {
+
+void Attribute::setDiffuse(const fvector3D &d) {
     diffuse = d;
 }
 
-void Attribute::setSpecular(const double s) {
+void Attribute::setSpecular(const fvector3D &s) {
     specular = s;
 }
 
-void Attribute::setColor(const fvector3D &c) {
-    color = c;
+void Attribute::setLight(const fvector3D &l) {
+    light = l;
 }
 
 fvector3D Node::getPosition() const {
