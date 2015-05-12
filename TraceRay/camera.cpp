@@ -11,7 +11,7 @@
 Camera::Camera() {
     setPosition(fvector3D(-1, 0, 0));
     setFilm(fvector3D(0, 0, 0), fvector3D(0, 1, 0), fvector3D(0, 0, 1));
-    setResolution(0.01);
+    setResolution(0.001);
 }
 
 Camera::Camera(const fvector3D &pos, const fvector3D &c, const fvector3D &h, const fvector3D &w, const double r) {
