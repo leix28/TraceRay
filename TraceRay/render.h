@@ -19,10 +19,12 @@ class Render{
     std::shared_ptr<Camera> camera;
     std::shared_ptr<Scene> scene;
     
+    fvector3D trace(const Ray &ray) const;
+    
 public:
     Render();
     
-    std::vector< std::vector<Color> > renderScene();
+    std::vector< std::vector<fvector3D> > renderScene();
     
 };
 
