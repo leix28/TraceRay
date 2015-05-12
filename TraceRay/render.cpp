@@ -26,7 +26,7 @@ fvector3D Render::trace(const Ray &ray) const {
     Attribute attr = scene->getAttribute(p);
     
     fvector3D normal = scene->getNormalVector(p);
-    double NdotL = normal.dotProduct(ray.getDirection());
+    double NdotL = -normal.dotProduct(ray.getDirection());
     fvector3D diffuseTerm = attr.getDiffuse().multiply(fmax(NdotL, 0));
     return lightColor.multiply(diffuseTerm);
 }
