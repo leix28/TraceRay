@@ -18,10 +18,6 @@ fvector3D::fvector3D() {
     v[0] = v[1] = v[2] = 0;
 }
 
-fvector3D::fvector3D(double _v[3]) {
-    v[0] = _v[0]; v[1] = _v[1]; v[2] = _v[2];
-}
-
 fvector3D::fvector3D(double _x, double _y, double _z) {
     v[0] = _x; v[1] = _y; v[2] = _z;
 }

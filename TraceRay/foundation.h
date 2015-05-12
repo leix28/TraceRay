@@ -20,7 +20,6 @@ double sqr(const double x);
 class fvector3D {
 public:
     fvector3D();
-    fvector3D(double _v[3]);
     fvector3D(double _x, double _y, double _z);
     
     double get(const int index) const;
