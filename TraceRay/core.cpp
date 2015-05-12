@@ -9,7 +9,7 @@
 #include "core.h"
 
 Attribute::Attribute() {
-    diffuse = specular = 0;
+    diffuse = specular = light = fvector3D(0, 0, 0);
 }
 
 Attribute::Attribute(const fvector3D &d, const fvector3D &s, const fvector3D &l) {
