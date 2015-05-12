@@ -79,7 +79,7 @@ fvector3D fvector3D::multiply(const fvector3D y) const {
 
 double fvector3D::dotProduct(const fvector3D &y) const {
     double z = 0;
-    z += get(0) * y.get(0) + get(1) * y.get(1) + get(2) + y.get(2);
+    z += get(0) * y.get(0) + get(1) * y.get(1) + get(2) * y.get(2);
     return z;
 }
 
