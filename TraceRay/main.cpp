@@ -20,9 +20,9 @@ cv::Mat convertToCV(const std::vector< std::vector<fvector3D> > &matrix) {
     
     for (auto i = 0; i < h; i++)
         for (auto j = 0; j < w; j++) {
-            image.at<double>(i, j * 3 + 0) = matrix[i][j].get(2);
-            image.at<double>(i, j * 3 + 1) = matrix[i][j].get(1);
-            image.at<double>(i, j * 3 + 2) = matrix[i][j].get(0);
+            image.at<double>(i, j, 0) = matrix[i][j].get(2) * 256;
+            image.at<double>(i, j, 1) = matrix[i][j].get(1) * 256;
+            image.at<double>(i, j, 2) = matrix[i][j].get(0) * 256;
         }
     
     return image;
