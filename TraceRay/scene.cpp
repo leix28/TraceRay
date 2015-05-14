@@ -13,14 +13,12 @@ void Scene::addNode(const std::shared_ptr<Node> &node) {
 }
 
 double Scene::getCollise(const Ray &r) const {
-    double tmp = -1;
+    double p = -1;
     for (auto &node : nodes) {
-        if (tmp == -1)
-            tmp = node->getCollide(r);
-        else
-            tmp = fmin(tmp, node->getCollide(r));
+        double tt = node->getCollide(r);
+        if (tt > 0 && (tt < p || p < 0)) p = tt;
     }
-    return tmp;
+    return p;
 }
 
 fvector3D Scene::getNormalVector(const fvector3D &p) const {
