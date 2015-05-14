@@ -10,7 +10,7 @@
 
 Camera::Camera() {
     setPosition(fvector3D(-1, 0, 0));
-    setFilm(fvector3D(0, 0, 0), fvector3D(0, 1, 0), fvector3D(0, 0, 1));
+    setFilm(fvector3D(0, 0, 0), fvector3D(0, 0, -1), fvector3D(0, 1, 0));
     setResolution(0.001);
 }
 
