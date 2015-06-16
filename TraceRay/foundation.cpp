@@ -16,6 +16,10 @@ Vector::Vector() {
   x = y = z = 0;
 }
 
+Vector::Vector(double _x, double _y, double _z) {
+  x = _x; y = _y; z = _z;
+}
+
 double& Vector::operator [] (const int id) {
   if (id == 0) return x;
   if (id == 1) return y;

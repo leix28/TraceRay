@@ -18,8 +18,11 @@ public:
   std::vector<Model> model;
   Camera camera;
   std::vector< std::vector<Vector> > image;
+  Vector diffLight;
   
   void saveToFile(std::string filename);
+  void render();
+  Vector trace(Ray r);
 };
 
 #endif /* defined(__TraceRay__scene__) */

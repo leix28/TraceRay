@@ -25,7 +25,7 @@ void Model::loadShapeFromFile(std::string filename) {
     if (buffer[ptr] == 'f') {
       int x, y, z;
       sscanf(buffer, "%*s%d%d%d", &x, &y, &z);
-      shape.push_back(Piece(vertex[x], vertex[y], vertex[z]));
+      shape.push_back(Piece(vertex[x - 1], vertex[y - 1], vertex[z - 1]));
     }
   }
   
