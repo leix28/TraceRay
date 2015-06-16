@@ -28,6 +28,7 @@
 		C213BDB81AFE744B002EA620 /* libopencv_videostab.2.4.11.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C213BDA61AFE744B002EA620 /* libopencv_videostab.2.4.11.dylib */; };
 		C26895791B30308F00DBD635 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C26895771B30308F00DBD635 /* foundation.cpp */; };
 		C268957C1B30367000DBD635 /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C268957A1B30367000DBD635 /* core.cpp */; };
+		C268957F1B3049C000DBD635 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C268957D1B3049C000DBD635 /* camera.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +68,8 @@
 		C26895781B30308F00DBD635 /* foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = foundation.h; sourceTree = "<group>"; };
 		C268957A1B30367000DBD635 /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
 		C268957B1B30367000DBD635 /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
+		C268957D1B3049C000DBD635 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
+		C268957E1B3049C000DBD635 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				C213BD8D1AFE72C5002EA620 /* main.cpp */,
+				C268957D1B3049C000DBD635 /* camera.cpp */,
+				C268957E1B3049C000DBD635 /* camera.h */,
 				C26895771B30308F00DBD635 /* foundation.cpp */,
 				C26895781B30308F00DBD635 /* foundation.h */,
 				C268957A1B30367000DBD635 /* core.cpp */,
@@ -208,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C268957F1B3049C000DBD635 /* camera.cpp in Sources */,
 				C26895791B30308F00DBD635 /* foundation.cpp in Sources */,
 				C213BD8E1AFE72C5002EA620 /* main.cpp in Sources */,
 				C268957C1B30367000DBD635 /* core.cpp in Sources */,

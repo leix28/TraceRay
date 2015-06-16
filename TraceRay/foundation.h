@@ -33,6 +33,7 @@ private:
   double x, y, z;
 };
 
+double norm(const Vector &x);
 Vector operator + (const Vector &a, const Vector &b);
 Vector operator - (const Vector &a, const Vector &b);
 Vector operator * (const double a, const Vector &b);

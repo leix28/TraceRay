@@ -26,6 +26,10 @@ double Vector::operator [] (const int id) const {
   assert(0);
 }
 
+double norm(const Vector &x) {
+  return sqrt(innerProduct(x, x));
+}
+
 Vector operator + (const Vector &a, const Vector &b) {
   Vector c;
   for (int i = 0; i < 3; i++) c[i] = a[i] + b[i];
