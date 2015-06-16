@@ -20,6 +20,7 @@
 #include <map>
 #include <set>
 #define EPS 1e-8
+#define INFD 1e8
 
 class Vector {
 public:
