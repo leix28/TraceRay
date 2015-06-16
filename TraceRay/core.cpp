@@ -8,6 +8,12 @@
 
 #include "core.h"
 
+Piece::Piece() {}
+
+Piece::Piece(const Vector &x, const Vector &y, const Vector &z) {
+  p[0] = x; p[1] = y; p[2] = z;
+}
+
 Vector& Piece::operator [] (const int id) {
   assert(id < 3);
   return p[id];

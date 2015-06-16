@@ -24,6 +24,8 @@ struct Ray {
 
 class Piece {
 public:
+  Piece();
+  Piece(const Vector &x, const Vector &y, const Vector &z);
   Vector& operator [] (const int id);
   const Vector& operator [] (const int id) const;
 private:

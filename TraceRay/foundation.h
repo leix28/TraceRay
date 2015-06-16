@@ -21,6 +21,9 @@
 #include <set>
 #define EPS 1e-8
 #define INFD 1e8
+#define BUFFER_SIZE 1024
+using std::min;
+using std::max;
 
 class Vector {
 public:

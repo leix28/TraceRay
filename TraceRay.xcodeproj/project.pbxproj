@@ -29,6 +29,7 @@
 		C26895791B30308F00DBD635 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C26895771B30308F00DBD635 /* foundation.cpp */; };
 		C268957C1B30367000DBD635 /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C268957A1B30367000DBD635 /* core.cpp */; };
 		C268957F1B3049C000DBD635 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C268957D1B3049C000DBD635 /* camera.cpp */; };
+		C26895821B30506200DBD635 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C26895801B30506200DBD635 /* Model.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -70,6 +71,8 @@
 		C268957B1B30367000DBD635 /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		C268957D1B3049C000DBD635 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
 		C268957E1B3049C000DBD635 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
+		C26895801B30506200DBD635 /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
+		C26895811B30506200DBD635 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 			children = (
 				C213BD8D1AFE72C5002EA620 /* main.cpp */,
 				C268957D1B3049C000DBD635 /* camera.cpp */,
+				C26895801B30506200DBD635 /* Model.cpp */,
+				C26895811B30506200DBD635 /* Model.h */,
 				C268957E1B3049C000DBD635 /* camera.h */,
 				C26895771B30308F00DBD635 /* foundation.cpp */,
 				C26895781B30308F00DBD635 /* foundation.h */,
@@ -215,6 +220,7 @@
 			files = (
 				C268957F1B3049C000DBD635 /* camera.cpp in Sources */,
 				C26895791B30308F00DBD635 /* foundation.cpp in Sources */,
+				C26895821B30506200DBD635 /* Model.cpp in Sources */,
 				C213BD8E1AFE72C5002EA620 /* main.cpp in Sources */,
 				C268957C1B30367000DBD635 /* core.cpp in Sources */,
 			);
