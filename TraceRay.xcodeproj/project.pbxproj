@@ -28,9 +28,7 @@
 		C213BDB81AFE744B002EA620 /* libopencv_videostab.2.4.11.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C213BDA61AFE744B002EA620 /* libopencv_videostab.2.4.11.dylib */; };
 		C213BDBB1AFE759A002EA620 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C213BDB91AFE759A002EA620 /* foundation.cpp */; };
 		C2516DF61AFFA09A008E336D /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2516DF41AFFA09A008E336D /* core.cpp */; };
-		C25EE14B1B043DBB00D8DF83 /* plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C25EE1491B043DBB00D8DF83 /* plane.cpp */; };
 		C2861F161B00CD3D00A3A5DB /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2861F141B00CD3D00A3A5DB /* camera.cpp */; };
-		C2861F191B00CDCC00A3A5DB /* sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2861F171B00CDCC00A3A5DB /* sphere.cpp */; };
 		C2861F1C1B00D7B700A3A5DB /* render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2861F1A1B00D7B700A3A5DB /* render.cpp */; };
 		C2861F1F1B00DA9500A3A5DB /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2861F1D1B00DA9500A3A5DB /* scene.cpp */; };
 /* End PBXBuildFile section */
@@ -72,12 +70,8 @@
 		C213BDBA1AFE759A002EA620 /* foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = foundation.h; sourceTree = "<group>"; };
 		C2516DF41AFFA09A008E336D /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
 		C2516DF51AFFA09A008E336D /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
-		C25EE1491B043DBB00D8DF83 /* plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane.cpp; sourceTree = "<group>"; };
-		C25EE14A1B043DBB00D8DF83 /* plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
 		C2861F141B00CD3D00A3A5DB /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
 		C2861F151B00CD3D00A3A5DB /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
-		C2861F171B00CDCC00A3A5DB /* sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere.cpp; sourceTree = "<group>"; };
-		C2861F181B00CDCC00A3A5DB /* sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sphere.h; sourceTree = "<group>"; };
 		C2861F1A1B00D7B700A3A5DB /* render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render.cpp; sourceTree = "<group>"; };
 		C2861F1B1B00D7B700A3A5DB /* render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render.h; sourceTree = "<group>"; };
 		C2861F1D1B00DA9500A3A5DB /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = "<group>"; };
@@ -144,10 +138,6 @@
 				C2861F1B1B00D7B700A3A5DB /* render.h */,
 				C2861F1D1B00DA9500A3A5DB /* scene.cpp */,
 				C2861F1E1B00DA9500A3A5DB /* scene.h */,
-				C2861F171B00CDCC00A3A5DB /* sphere.cpp */,
-				C25EE1491B043DBB00D8DF83 /* plane.cpp */,
-				C25EE14A1B043DBB00D8DF83 /* plane.h */,
-				C2861F181B00CDCC00A3A5DB /* sphere.h */,
 			);
 			path = TraceRay;
 			sourceTree = "<group>";
@@ -235,12 +225,10 @@
 			files = (
 				C2861F161B00CD3D00A3A5DB /* camera.cpp in Sources */,
 				C213BDBB1AFE759A002EA620 /* foundation.cpp in Sources */,
-				C25EE14B1B043DBB00D8DF83 /* plane.cpp in Sources */,
 				C213BD8E1AFE72C5002EA620 /* main.cpp in Sources */,
 				C2861F1F1B00DA9500A3A5DB /* scene.cpp in Sources */,
 				C2861F1C1B00D7B700A3A5DB /* render.cpp in Sources */,
 				C2516DF61AFFA09A008E336D /* core.cpp in Sources */,
-				C2861F191B00CDCC00A3A5DB /* sphere.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

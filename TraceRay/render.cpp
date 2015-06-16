@@ -7,8 +7,6 @@
 //
 
 #include "render.h"
-#include "sphere.h"
-#include "plane.h"
 
 fvector3D lightDir(0, 0, -1);
 fvector3D lightColor(1, 1, 1);
@@ -17,11 +15,6 @@ Render::Render() {
     camera = std::shared_ptr<Camera>(new Camera());
     scene = std::shared_ptr<Scene>(new Scene());
     
-    scene->addNode(std::shared_ptr<Node>(new SphereNode(fvector3D(8, -2, 0), 1, Attribute(fvector3D(0.8, 0, 0), fvector3D(0.2, 0.2, 0.2), fvector3D(0, 0, 0)))));
-
-    scene->addNode(std::shared_ptr<Node>(new SphereNode(fvector3D(8, 2, 0), 1, Attribute(fvector3D(0, 0.8, 0), fvector3D(0.2, 0.2, 0.2), fvector3D(0, 0, 0)))));
-
-    scene->addNode(std::shared_ptr<Node>(new PlaneNode(fvector3D(0, 0, -2), fvector3D(0, 0, 1), Attribute(fvector3D(1, 1, 1), fvector3D(0, 0, 0), fvector3D(0, 0, 0)))));
 }
 
 fvector3D Render::trace(const Ray &ray, int dep) const {
