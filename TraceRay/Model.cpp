@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 LeonardXu. All rights reserved.
 //
 
-#include "Model.h"
+#include "model.h"
 
 void Model::loadShapeFromFile(std::string filename) {
   char buffer[BUFFER_SIZE];

@@ -19,11 +19,12 @@
 #include <vector>
 #include <map>
 #include <set>
-#define EPS 1e-8
-#define INFD 1e8
-#define BUFFER_SIZE 1024
 using std::min;
 using std::max;
+
+extern const double EPS;
+extern const double INFD;
+extern const int BUFFER_SIZE;
 
 class Vector {
 public:

@@ -8,6 +8,10 @@
 
 #include "foundation.h"
 
+const double EPS = 1e-8;
+const double INFD = 1e8;
+const int BUFFER_SIZE = 1024;
+
 Vector::Vector() {
   x = y = z = 0;
 }
