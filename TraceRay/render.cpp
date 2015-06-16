@@ -8,6 +8,7 @@
 
 #include "render.h"
 #include "sphere.h"
+#include "plane.h"
 
 fvector3D lightDir(0, 0, -1);
 fvector3D lightColor(1, 1, 1);
@@ -16,10 +17,14 @@ Render::Render() {
     camera = std::shared_ptr<Camera>(new Camera());
     scene = std::shared_ptr<Scene>(new Scene());
     
-    scene->addNode(std::shared_ptr<Node>(new SphereNode(fvector3D(5, 0, 0), 2, Attribute(fvector3D(1, 1, 1), fvector3D(0, 0, 0), fvector3D(0, 0, 0)))));
+    scene->addNode(std::shared_ptr<Node>(new SphereNode(fvector3D(8, -2, 0), 1, Attribute(fvector3D(0.8, 0, 0), fvector3D(0.2, 0.2, 0.2), fvector3D(0, 0, 0)))));
+
+    scene->addNode(std::shared_ptr<Node>(new SphereNode(fvector3D(8, 2, 0), 1, Attribute(fvector3D(0, 0.8, 0), fvector3D(0.2, 0.2, 0.2), fvector3D(0, 0, 0)))));
+
+    scene->addNode(std::shared_ptr<Node>(new PlaneNode(fvector3D(0, 0, -2), fvector3D(0, 0, 1), Attribute(fvector3D(1, 1, 1), fvector3D(0, 0, 0), fvector3D(0, 0, 0)))));
 }
 
-fvector3D Render::trace(const Ray &ray) const {
+fvector3D Render::trace(const Ray &ray, int dep) const {
     double tmp = scene->getCollise(ray);
     if (tmp < 0) return fvector3D();
     fvector3D p = ray.getPoint(tmp);
@@ -27,8 +32,14 @@ fvector3D Render::trace(const Ray &ray) const {
     
     fvector3D normal = scene->getNormalVector(p);
     double NdotL = -normal.dotProduct(ray.getDirection());
-    fvector3D diffuseTerm = attr.getDiffuse().multiply(fmax(NdotL, 0));
-    return lightColor.multiply(diffuseTerm);
+    fvector3D diffuseTerm = lightColor.multiply(attr.getDiffuse().multiply(fmax(NdotL, 0)));
+    
+    if (dep == MAX_DEP)
+        return diffuseTerm;
+    
+    Ray ref(p, ray.getDirection().subtract(normal.multiply(ray.getDirection().dotProduct(normal) * 2)));
+    fvector3D reflectTerm = attr.getSpecular().multiply(trace(ref, dep + 1));
+    return diffuseTerm.add(reflectTerm);
 }
 
 std::vector< std::vector<fvector3D> > Render::renderScene() {
@@ -38,7 +49,7 @@ std::vector< std::vector<fvector3D> > Render::renderScene() {
     for (int i = 0; i < resolution.first; i++)
         for (int j = 0; j < resolution.second; j++) {
             Ray ray = camera->getRay(i, j);
-            graph[i][j] = trace(ray);
+            graph[i][j] = trace(ray, 0);
         }
     
     return graph;

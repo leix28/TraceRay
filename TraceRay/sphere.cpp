@@ -29,11 +29,11 @@ void SphereNode::setRadius(const double r) {
 
 
 double SphereNode::getCollide(const Ray &r) const {
-    assert(r.getSource().subtract(getPosition()).length() >= getRadius());
+    assert(r.getSource().subtract(getPosition()).length() >= getRadius() - EPS);
     
     fvector3D v = r.getSource().subtract(getPosition());
     double tmp = sqr(r.getDirection().dotProduct(v)) - (v.dotProduct(v) - sqr(getRadius()));
-    if (tmp < 0) return -1;
+    if (tmp < EPS) return -1;
     
     return -r.getDirection().dotProduct(v) - sqrt(tmp);
 }

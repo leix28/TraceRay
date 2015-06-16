@@ -19,7 +19,9 @@ class Render{
     std::shared_ptr<Camera> camera;
     std::shared_ptr<Scene> scene;
     
-    fvector3D trace(const Ray &ray) const;
+    const int MAX_DEP = 5;
+    
+    fvector3D trace(const Ray &ray, int dep) const;
     
 public:
     Render();
