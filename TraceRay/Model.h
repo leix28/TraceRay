@@ -16,8 +16,8 @@ class Model {
 public:
   std::vector<Piece> shape;
   Attribute attribute;
-  void loadShapeFromFile(std::string filename);
-  double collision(Ray r);
+  void loadShapeFromFile(std::string filename, double s, double dx, double dy, double dz);
+  std::pair<double, Ray> collision(Ray r);
 };
 
 #endif /* defined(__TraceRay__Model__) */

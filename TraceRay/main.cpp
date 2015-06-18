@@ -23,7 +23,9 @@ void loadConfig() {
    
    number of object
    
-      object name
+      object name  scale  position
+      diffuse rate
+      specular rate
    */
   
   FILE *file = fopen("config", "r");
@@ -54,10 +56,21 @@ void loadConfig() {
   scene.model.resize(n);
   char filename[BUFFER_SIZE];
   for (int i = 0; i < n; i++) {
-    fscanf(file, "%s", filename);
-    scene.model[i].loadShapeFromFile(std::string(filename));
+    double s, dx, dy, dz;
+    fscanf(file, "%s%lf%lf%lf%lf", filename, &s, &dx, &dy, &dz);
+    scene.model[i].loadShapeFromFile(std::string(filename), s, dx, dy, dz);
+    fscanf(file, "%lf%lf%lf", &x, &y, &z);
+    scene.model[i].attribute.diffuse = Vector(x, y, z);
+    fscanf(file, "%lf%lf%lf", &x, &y, &z);
+    scene.model[i].attribute.specular = Vector(x, y, z);
   }
   
+  
+  //add top light
+  scene.light.resize(1);
+  scene.light[0].shape.push_back(Piece(Vector(-10, 3, -10), Vector(-10, 3, 10), Vector(10, 3, -10)));
+  scene.light[0].shape.push_back(Piece(Vector(10, 3, 10), Vector(-10, 3, 10), Vector(10, 3, -10)));
+  scene.light[0].attribute.diffuse = Vector(1, 1, 1);
   fclose(file);
 }
 

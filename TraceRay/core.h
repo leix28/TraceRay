@@ -32,6 +32,6 @@ private:
   Vector p[3];
 };
 
-double collision(Ray r, Piece s);
+std::pair<double, Ray> collision(Ray r, Piece s);
 
 #endif /* defined(__TraceRay__core__) */

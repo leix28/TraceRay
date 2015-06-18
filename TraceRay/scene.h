@@ -15,14 +15,14 @@
 
 class Scene {
 public:
-  std::vector<Model> model;
+  std::vector<Model> model, light;
   Camera camera;
   std::vector< std::vector<Vector> > image;
   Vector diffLight;
   
   void saveToFile(std::string filename);
   void render();
-  Vector trace(Ray r);
+  Vector trace(Ray r, int dep);
 };
 
 #endif /* defined(__TraceRay__scene__) */

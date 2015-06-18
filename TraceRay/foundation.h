@@ -21,6 +21,7 @@
 #include <set>
 using std::min;
 using std::max;
+using std::make_pair;
 
 extern const double EPS;
 extern const double INFD;

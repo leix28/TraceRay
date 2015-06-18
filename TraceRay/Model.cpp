@@ -8,7 +8,7 @@
 
 #include "model.h"
 
-void Model::loadShapeFromFile(std::string filename) {
+void Model::loadShapeFromFile(std::string filename, double s, double dx, double dy, double dz) {
   char buffer[BUFFER_SIZE];
   FILE *file = fopen(filename.c_str(), "r");
   
@@ -20,6 +20,9 @@ void Model::loadShapeFromFile(std::string filename) {
     if (buffer[ptr] == 'v') {
       Vector v;
       sscanf(buffer, "%*s%lf%lf%lf", &v[0], &v[1], &v[2]);
+      v[0] = v[0] * s + dx;
+      v[1] = v[1] * s + dy;
+      v[2] = v[2] * s + dz;
       vertex.push_back(v);
     }
     if (buffer[ptr] == 'f') {
@@ -32,13 +35,17 @@ void Model::loadShapeFromFile(std::string filename) {
   fclose(file);
 }
 
-double Model::collision(Ray r) {
+std::pair<double, Ray> Model::collision(Ray r) {
   double t = INFD;
+  Ray ref;
   for (const auto &p : shape) {
-    double tmp = ::collision(r, p);
-    if (tmp < 0) continue;
-    t = min(t, tmp);
+    auto tmp = ::collision(r, p);
+    if (tmp.first < EPS) continue;
+    if (tmp.first < t) {
+      t = tmp.first;
+      ref = tmp.second;
+    }
   }
-  if (t == INFD) return -1;
-  return t;
+  if (t == INFD) return make_pair(-1, Ray());
+  return make_pair(t, ref);
 }
