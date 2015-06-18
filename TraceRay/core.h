@@ -19,19 +19,7 @@ struct Attribute {
 
 struct Ray {
   Vector position, direction;
-  double index;
 };
 
-class Piece {
-public:
-  Piece();
-  Piece(const Vector &x, const Vector &y, const Vector &z);
-  Vector& operator [] (const int id);
-  const Vector& operator [] (const int id) const;
-private:
-  Vector p[3];
-};
-
-std::pair<double, Ray> collision(Ray r, Piece s);
 
 #endif /* defined(__TraceRay__core__) */
