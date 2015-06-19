@@ -15,14 +15,15 @@
 
 class Scene {
 public:
+  int MAX_DEP;
   std::vector< std::pair<char, void*> > item;
   std::vector<Light> light;
   Vector ambLight;
   std::vector< std::vector<Vector> > image;
   Camera camera;
-  Vector trace(const Ray &r);
+  Vector trace(const Ray &r, int dep);
   std::pair<CollideInfo, Attribute> getCollide(const Ray &r);
-  
+  Vector getPhongColor(const Ray &r, const CollideInfo &info, const Attribute &attr);
   void render();
   void save(std::string filename);
 

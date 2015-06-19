@@ -55,16 +55,8 @@ std::pair<CollideInfo, Attribute> Scene::getCollide(const Ray &r) {
   return make_pair(info, attr);
 }
 
-Vector Scene::trace(const Ray &r) {
-  CollideInfo info;
-  Attribute attr;
-  auto tmp = getCollide(r);
-  
-  info = tmp.first;
-  attr = tmp.second;
-  
+Vector Scene::getPhongColor(const Ray &r, const CollideInfo &info, const Attribute &attr) {
   Vector color;
-  
   if (info.distance != -1) {
     color = attr.ka * ambLight;
     for (const auto &lit : light) {
@@ -78,6 +70,23 @@ Vector Scene::trace(const Ray &r) {
         color = color + pow(t, attr.alpha) * attr.ks * lit.specular;
     }
   }
+  return color;
+}
+
+Vector Scene::trace(const Ray &r, int dep) {
+  if (dep > MAX_DEP)
+    return Vector();
+  CollideInfo info;
+  Attribute attr;
+  auto tmp = getCollide(r);
+  
+  info = tmp.first;
+  attr = tmp.second;
+  
+  Vector color = attr.pd * getPhongColor(r, info, attr);
+
+  if (info.reflectValid)
+    color = color + attr.ps * trace(info.reflect, dep + 1);
   
   return color;
 }
@@ -87,5 +96,5 @@ void Scene::render() {
   image.resize(camera.pixHeight, std::vector<Vector>(camera.pixWidth));
   for (int i = 0; i < camera.pixHeight; i++)
     for (int j = 0; j < camera.pixWidth; j++)
-      image[i][j] = trace(camera.getRay(i, j));
+      image[i][j] = trace(camera.getRay(i, j), 0);
 }
