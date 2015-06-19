@@ -13,6 +13,7 @@
 #include "core.h"
 #include "camera.h"
 #include <thread>
+#include <mutex>
 
 class Scene {
 public:
