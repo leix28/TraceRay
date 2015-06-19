@@ -27,6 +27,8 @@ extern const double EPS;
 extern const double INFD;
 extern const int BUFFER_SIZE;
 
+double sqr(double x);
+
 class Vector {
 public:
   Vector();
@@ -41,6 +43,7 @@ private:
 double norm(const Vector &x);
 Vector operator + (const Vector &a, const Vector &b);
 Vector operator - (const Vector &a, const Vector &b);
+Vector operator - (const Vector &a);
 Vector operator * (const double a, const Vector &b);
 Vector operator * (const Vector &a, const double b);
 Vector operator * (const Vector &a, const Vector &b);

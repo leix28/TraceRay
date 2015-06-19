@@ -26,6 +26,7 @@
 		C213BDB61AFE744B002EA620 /* libopencv_superres.2.4.11.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C213BDA41AFE744B002EA620 /* libopencv_superres.2.4.11.dylib */; };
 		C213BDB71AFE744B002EA620 /* libopencv_video.2.4.11.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C213BDA51AFE744B002EA620 /* libopencv_video.2.4.11.dylib */; };
 		C213BDB81AFE744B002EA620 /* libopencv_videostab.2.4.11.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C213BDA61AFE744B002EA620 /* libopencv_videostab.2.4.11.dylib */; };
+		C228E3E01B32BFEB005E8C5C /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C228E3DE1B32BFEB005E8C5C /* scene.cpp */; };
 		C26895791B30308F00DBD635 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C26895771B30308F00DBD635 /* foundation.cpp */; };
 		C268957C1B30367000DBD635 /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C268957A1B30367000DBD635 /* core.cpp */; };
 		C268957F1B3049C000DBD635 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C268957D1B3049C000DBD635 /* camera.cpp */; };
@@ -64,6 +65,8 @@
 		C213BDA41AFE744B002EA620 /* libopencv_superres.2.4.11.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_superres.2.4.11.dylib; path = lib/libopencv_superres.2.4.11.dylib; sourceTree = "<group>"; };
 		C213BDA51AFE744B002EA620 /* libopencv_video.2.4.11.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_video.2.4.11.dylib; path = lib/libopencv_video.2.4.11.dylib; sourceTree = "<group>"; };
 		C213BDA61AFE744B002EA620 /* libopencv_videostab.2.4.11.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_videostab.2.4.11.dylib; path = lib/libopencv_videostab.2.4.11.dylib; sourceTree = "<group>"; };
+		C228E3DE1B32BFEB005E8C5C /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = "<group>"; };
+		C228E3DF1B32BFEB005E8C5C /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
 		C26895771B30308F00DBD635 /* foundation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = foundation.cpp; sourceTree = "<group>"; };
 		C26895781B30308F00DBD635 /* foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = foundation.h; sourceTree = "<group>"; };
 		C268957A1B30367000DBD635 /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 				C26895771B30308F00DBD635 /* foundation.cpp */,
 				C26895781B30308F00DBD635 /* foundation.h */,
 				C268957A1B30367000DBD635 /* core.cpp */,
+				C228E3DE1B32BFEB005E8C5C /* scene.cpp */,
+				C228E3DF1B32BFEB005E8C5C /* scene.h */,
 				C268957B1B30367000DBD635 /* core.h */,
 			);
 			path = TraceRay;
@@ -213,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C228E3E01B32BFEB005E8C5C /* scene.cpp in Sources */,
 				C268957F1B3049C000DBD635 /* camera.cpp in Sources */,
 				C26895791B30308F00DBD635 /* foundation.cpp in Sources */,
 				C213BD8E1AFE72C5002EA620 /* main.cpp in Sources */,

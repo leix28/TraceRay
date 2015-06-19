@@ -9,8 +9,12 @@
 #include "foundation.h"
 
 const double EPS = 1e-8;
-const double INFD = 1e8;
+const double INFD = 1e20;
 const int BUFFER_SIZE = 1024;
+
+double sqr(double x) {
+  return x * x;
+}
 
 Vector::Vector() {
   x = y = z = 0;
@@ -49,6 +53,13 @@ Vector operator - (const Vector &a, const Vector &b) {
   for (int i = 0; i < 3; i++) c[i] = a[i] - b[i];
   return c;
 }
+
+Vector operator - (const Vector &a) {
+  Vector b;
+  for (int i = 0; i < 3; i++) b[i] = -a[i];
+  return b;
+}
+
 
 Vector operator * (const double a, const Vector &b) {
   Vector c;
