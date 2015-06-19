@@ -12,18 +12,18 @@
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-  scene.camera.position = Vector(0, 0, 5);
-  scene.camera.filmCenter = Vector(0, 0, 4);
+  scene.camera.position = Vector(0, 0, 10);
+  scene.camera.filmCenter = Vector(0, 0, 8);
   scene.camera.pixHeight = 1000;
   scene.camera.pixWidth = 1000;
-  scene.camera.filmHeight = Vector(0, -2, 0);
-  scene.camera.filmWidth = Vector(2, 0, 0);
+  scene.camera.filmHeight = Vector(0, -1, 0);
+  scene.camera.filmWidth = Vector(1, 0, 0);
   
   scene.ambLight = Vector(1, 1, 1);
   scene.MAX_DEP = 4;
   
   Ball *ball = new Ball();
-  ball->position = Vector(0, 0, 0);
+  ball->position = Vector(-1, 0, -1);
   ball->radius = 1;
   ball->attribute.ks = Vector(0.5, 0.5, 0.5);
   ball->attribute.kd = Vector(0.8, 0.8, 0);
@@ -31,6 +31,17 @@ int main(int argc, const char * argv[]) {
   ball->attribute.alpha = 30;
   ball->attribute.pd = Vector(0.8, 0.8, 0.8);
   ball->attribute.ps = Vector(0.2, 0.2, 0.2);
+  scene.item.push_back(make_pair(BALL, ball));
+  
+  ball = new Ball();
+  ball->position = Vector(1, 0, 1);
+  ball->radius = 1;
+  ball->attribute.ks = Vector(0.8, 0.8, 0.8);
+  ball->attribute.kd = Vector(0, 0, 0.8);
+  ball->attribute.ka = Vector(0, 0, 0.2);
+  ball->attribute.alpha = 80;
+  ball->attribute.pd = Vector(0, 0, 0.5);
+  ball->attribute.ps = Vector(0, 0, 0.5);
   scene.item.push_back(make_pair(BALL, ball));
   
   Rect *rect = new Rect();

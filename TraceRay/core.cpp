@@ -19,9 +19,8 @@ CollideInfo Ball::collide(const Ray &r) {
   Vector v = r.position - position;
   if (norm(v) < radius + EPS) return info;
   if (innerProduct(v, r.direction) > 0) return info;
-  if (norm(crossProduct(v, r.direction)) > radius) return info;
   
-  assert(sqr(innerProduct(r.direction, v)) - innerProduct(v, v) + sqr(radius) >= 0);
+  if (sqr(innerProduct(r.direction, v)) - innerProduct(v, v) + sqr(radius) < 0) return info;
   info.distance = -innerProduct(r.direction, v) - sqrt(sqr(innerProduct(r.direction, v)) - innerProduct(v, v) + sqr(radius));
   info.reflectValid = 1;
   info.reflect.position = r.position + info.distance * r.direction;
@@ -62,6 +61,7 @@ CollideInfo Rect::collide(const Ray &r) {
   info.reflect.position = p;
   info.reflect.direction = reflect(r.direction, n);
   info.normal = n;
+  
   return info;
 }
 
