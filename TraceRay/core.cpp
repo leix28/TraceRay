@@ -12,6 +12,20 @@ const char BALL = 'b';
 const char RECT = 'r';
 
 
+void Attribute::loadImg(std::string filename) {
+  hasimg = 1;
+  img = new std::vector< std::vector<Vector> >();
+  img->clear();
+  auto tmp = cv::imread(filename);
+  img->resize(tmp.rows, std::vector<Vector>(tmp.cols));
+  for (int i = 0; i < tmp.rows; i++)
+    for (int j = 0; j < tmp.cols; j++) {
+      (*img)[i][j][0] = tmp.at<uint8_t>(i * tmp.cols * 3 + j * 3 + 2) / 256.0;
+      (*img)[i][j][1] = tmp.at<uint8_t>(i * tmp.cols * 3 + j * 3 + 1) / 256.0;
+      (*img)[i][j][2] = tmp.at<uint8_t>(i * tmp.cols * 3 + j * 3 + 0) / 256.0;
+    }
+}
+
 CollideInfo Ball::collide(const Ray &r) {
   assert(fabs(norm(r.direction) - 1) < EPS);
   CollideInfo info;
@@ -107,6 +121,17 @@ CollideInfo Rect::collide(const Ray &r) {
   info.reflect.direction = reflect(r.direction, n);
   info.normal = n;
   info.reflect.inside = r.inside;
+  
+  if (attribute.hasimg) {
+    Vector ax = x / norm(x);
+    Vector ay = y / norm(y);
+    int xx = innerProduct(ax, info.reflect.position - ptr) / 0.01;
+    int yy = innerProduct(ay, info.reflect.position - ptr) / 0.01;
+    xx %= attribute.img->size();
+    yy %= (*attribute.img)[0].size();
+    info.x = xx;
+    info.y = yy;
+  }
   
   return info;
 }

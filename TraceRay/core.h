@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "foundation.h"
+#include "opencv2/opencv.hpp"
 extern const char BALL;
 extern const char RECT;
 
@@ -19,6 +20,9 @@ struct Attribute {
   double alpha;       //Phone shininess
   Vector pd, ps, pt;  //TraceRay diffuse/specular/transparent
   double index;
+  std::vector< std::vector<Vector> > *img;
+  bool hasimg = 0;
+  void loadImg(std::string filename);
 };
 
 struct Ray {
@@ -31,6 +35,7 @@ struct CollideInfo {
   Ray reflect, transparent;
   Vector normal;
   bool reflectValid, transparentValid;
+  int x, y; 
 };
 
 class Ball {

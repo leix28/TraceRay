@@ -57,8 +57,12 @@ std::pair<CollideInfo, Attribute> Scene::getCollide(const Ray &r) {
 
 Vector Scene::getPhongColor(const Ray &r, const CollideInfo &info, const Attribute &attr) {
   Vector color;
+  Vector self = Vector(1, 1, 1);
+  if (attr.hasimg) {
+    self = (*attr.img)[info.x][info.y];
+  }
   if (info.distance > 0) {
-    color = attr.ka * ambLight;
+    color = attr.ka * ambLight * self;
     double rate = 1.0 / lightSample / lightSample;
     for (int i = 0; i < lightSample; i++)
       for (int j = 0; j < lightSample; j++) {
@@ -77,7 +81,7 @@ Vector Scene::getPhongColor(const Ray &r, const CollideInfo &info, const Attribu
         
         double t = innerProduct(lm, info.normal);
         if (t > 0)
-          color = color + rate * t * attr.kd * light.attribute.kd;
+          color = color + rate * t * attr.kd * light.attribute.kd * self;
         t = innerProduct(-r.direction, reflect(-lm, info.normal));
         if (t > 0)
           color = color + rate * pow(t, attr.alpha) * attr.ks * light.attribute.ks;
