@@ -18,7 +18,8 @@ class Scene {
 public:
   int MAX_DEP;
   std::vector< std::pair<char, void*> > item;
-  std::vector<Light> light;
+  Rect light;
+  int lightSample;
   Vector ambLight;
   std::vector< std::vector<Vector> > image;
   Camera camera;

@@ -59,28 +59,29 @@ Vector Scene::getPhongColor(const Ray &r, const CollideInfo &info, const Attribu
   Vector color;
   if (info.distance > 0) {
     color = attr.ka * ambLight;
-    for (const auto &lit : light) {
-      Vector lm = lit.position - info.reflect.position;
-      double dis = norm(lm);
-      if (dis < EPS) 
-        lm = -info.normal;
-      else
+    double rate = 1.0 / lightSample / lightSample;
+    for (int i = 0; i < lightSample; i++)
+      for (int j = 0; j < lightSample; j++) {
+        Vector p = light.ptr + ((double)i / lightSample * light.x) + ((double)j / lightSample * light.y) ;
+        Vector lm = p - info.reflect.position;
+        double dis = norm(lm);
+        if (dis < EPS) continue;
         lm = lm / norm(lm);
-      
-      Ray lt;
-      lt.position = info.reflect.position;
-      lt.direction = lm;
-      lt.inside = info.reflect.inside;
-      double sha = getCollide(lt).first.distance;
-      if (sha > 0 && sha < dis) continue;
-      
-      double t = innerProduct(lm, info.normal);
-      if (t > 0)
-        color = color + t * attr.kd * lit.diffuse;
-      t = innerProduct(-r.direction, reflect(-lm, info.normal));
-      if (t > 0)
-        color = color + pow(t, attr.alpha) * attr.ks * lit.specular;
-    }
+        
+        Ray lt;
+        lt.position = info.reflect.position;
+        lt.direction = lm;
+        lt.inside = info.reflect.inside;
+        double sha = getCollide(lt).first.distance;
+        if (sha > 0 && sha < dis) continue;
+        
+        double t = innerProduct(lm, info.normal);
+        if (t > 0)
+          color = color + rate * t * attr.kd * light.attribute.kd;
+        t = innerProduct(-r.direction, reflect(-lm, info.normal));
+        if (t > 0)
+          color = color + rate * pow(t, attr.alpha) * attr.ks * light.attribute.ks;
+      }
   }
   return color;
 }
@@ -94,6 +95,14 @@ Vector Scene::trace(const Ray &r, int dep) {
   
   info = tmp.first;
   attr = tmp.second;
+  
+  double lit = light.collide(r).distance;
+  if (lit > 0 && (lit <= info.distance || info.distance < 0)) {
+    if (dep == 0)
+      return light.attribute.ks;
+    else
+      return light.attribute.kd;
+  }
   
   Vector color;
   color = attr.pd * getPhongColor(r, info, attr);

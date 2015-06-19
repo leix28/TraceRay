@@ -86,6 +86,8 @@ CollideInfo Rect::collide(const Ray &r) {
   Vector n = crossProduct(x, y);
   n = n / norm(n);
   
+  if (innerProduct(n, r.direction) >= 0) return info;
+  
   info.distance = innerProduct(n, v) / innerProduct(r.direction, n);
   if (info.distance < EPS) {
     info.distance = -1;
