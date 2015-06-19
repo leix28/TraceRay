@@ -61,7 +61,15 @@ Vector Scene::getPhongColor(const Ray &r, const CollideInfo &info, const Attribu
     color = attr.ka * ambLight;
     for (const auto &lit : light) {
       Vector lm = lit.position - info.reflect.position;
+      double dis = norm(lm);
       lm = lm / norm(lm);
+      
+      Ray lt;
+      lt.position = info.reflect.position;
+      lt.direction = lm;
+      double sha = getCollide(lt).first.distance;
+      if (sha > 0 && sha < dis) continue;
+      
       double t = innerProduct(lm, info.normal);
       if (t > 0)
         color = color + t * attr.kd * lit.diffuse;
@@ -88,7 +96,7 @@ Vector Scene::trace(const Ray &r, int dep) {
   if (info.reflectValid)
     color = color + attr.ps * trace(info.reflect, dep + 1);
   
-  return color;
+  return scale(color);
 }
 
 void Scene::render() {

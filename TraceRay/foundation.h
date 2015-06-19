@@ -35,11 +35,11 @@ public:
   Vector(double _x, double _y, double _z);
   double& operator [] (const int id);
   double operator [] (const int id) const;
-  
 private:
   double x, y, z;
 };
 
+Vector scale(const Vector &x);
 double norm(const Vector &x);
 Vector operator + (const Vector &a, const Vector &b);
 Vector operator - (const Vector &a, const Vector &b);

@@ -38,6 +38,13 @@ double Vector::operator [] (const int id) const {
   assert(0);
 }
 
+Vector scale(const Vector &x) {
+  Vector y = x;
+  for (int i = 0; i < 3; i++)
+    y[0] = min(1.0, max(0.0, y[0]));
+  return y;
+}
+
 double norm(const Vector &x) {
   return sqrt(innerProduct(x, x));
 }

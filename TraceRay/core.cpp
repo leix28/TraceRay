@@ -17,7 +17,7 @@ CollideInfo Ball::collide(const Ray &r) {
   info.distance = -1;
   info.reflectValid = info.transparentValid = 0;
   Vector v = r.position - position;
-  if (norm(v) < radius) return info;
+  if (norm(v) < radius + EPS) return info;
   if (innerProduct(v, r.direction) > 0) return info;
   if (norm(crossProduct(v, r.direction)) > radius) return info;
   
