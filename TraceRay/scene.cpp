@@ -31,7 +31,7 @@ std::pair<CollideInfo, Attribute> Scene::getCollide(const Ray &r) {
   CollideInfo info;
   Attribute attr;
   info.distance = INFD;
-
+  info.reflectValid = info.transparentValid = 0;
   for (const auto &itm : item) {
     CollideInfo tmp;
     Attribute tattr;
@@ -57,16 +57,20 @@ std::pair<CollideInfo, Attribute> Scene::getCollide(const Ray &r) {
 
 Vector Scene::getPhongColor(const Ray &r, const CollideInfo &info, const Attribute &attr) {
   Vector color;
-  if (info.distance != -1) {
+  if (info.distance > 0) {
     color = attr.ka * ambLight;
     for (const auto &lit : light) {
       Vector lm = lit.position - info.reflect.position;
       double dis = norm(lm);
-      lm = lm / norm(lm);
+      if (dis < EPS) 
+        lm = -info.normal;
+      else
+        lm = lm / norm(lm);
       
       Ray lt;
       lt.position = info.reflect.position;
       lt.direction = lm;
+      lt.inside = info.reflect.inside;
       double sha = getCollide(lt).first.distance;
       if (sha > 0 && sha < dis) continue;
       
@@ -91,18 +95,52 @@ Vector Scene::trace(const Ray &r, int dep) {
   info = tmp.first;
   attr = tmp.second;
   
-  Vector color = attr.pd * getPhongColor(r, info, attr);
+  Vector color;
+  color = attr.pd * getPhongColor(r, info, attr);
 
   if (info.reflectValid)
     color = color + attr.ps * trace(info.reflect, dep + 1);
   
+  if (info.transparentValid)
+    color = color + attr.pt * trace(info.transparent, dep + 1);
+  
   return scale(color);
+}
+
+void Scene::thread() {
+  while (1) {
+    mtx.lock();
+    int x = px;
+    int y = py;
+    if (x == camera.pixHeight) {
+      mtx.unlock();
+      return;
+    }
+    py++;
+    if (py == camera.pixWidth) {
+      px++;
+      py = 0;
+      printf("%d\n", px);
+    }
+    mtx.unlock();
+    image[x][y] = trace(camera.getRay(x, y), 0);
+  }
 }
 
 void Scene::render() {
   image.clear();
   image.resize(camera.pixHeight, std::vector<Vector>(camera.pixWidth));
-  for (int i = 0; i < camera.pixHeight; i++)
-    for (int j = 0; j < camera.pixWidth; j++)
-      image[i][j] = trace(camera.getRay(i, j), 0);
+  
+  px = 0;
+  py = 0;
+  
+  std::thread *pool = new std::thread[THREAD_NUM];
+  for (int i = 0; i < THREAD_NUM; i++) {
+    pool[i] = std::thread(std::bind(&Scene::thread, this));
+  }
+  for (int i = 0; i < THREAD_NUM; i++) {
+    pool[i].join();
+  }
+  
+  delete[] pool;
 }

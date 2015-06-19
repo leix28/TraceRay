@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "core.h"
 #include "camera.h"
+#include <thread>
 
 class Scene {
 public:
@@ -26,7 +27,9 @@ public:
   Vector getPhongColor(const Ray &r, const CollideInfo &info, const Attribute &attr);
   void render();
   void save(std::string filename);
-
+  void thread();
+  std::mutex mtx;
+  int px, py;
 };
 
 #endif /* defined(__TraceRay__scene__) */

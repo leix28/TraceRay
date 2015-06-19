@@ -23,6 +23,7 @@ struct Attribute {
 
 struct Ray {
   Vector position, direction;
+  bool inside;
 };
 
 struct CollideInfo {
@@ -53,5 +54,7 @@ public:
 };
 
 Vector reflect(const Vector &in, const Vector &normal);
+
+void insertBox(std::vector< std::pair<char, void*> > &item, const Vector &p, const Vector &x, const Vector &y, const Vector &z, const Attribute &attr);
 
 #endif /* defined(__TraceRay__core__) */

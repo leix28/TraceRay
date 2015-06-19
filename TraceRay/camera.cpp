@@ -18,5 +18,6 @@ Ray Camera::getRay(int row, int col) {
   r.direction = r.position - position;
   assert(norm(r.direction) > EPS);
   r.direction = r.direction / norm(r.direction);
+  r.inside = 0;
   return r;
 }

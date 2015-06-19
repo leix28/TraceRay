@@ -26,6 +26,7 @@ using std::make_pair;
 extern const double EPS;
 extern const double INFD;
 extern const int BUFFER_SIZE;
+extern const int THREAD_NUM;
 
 double sqr(double x);
 

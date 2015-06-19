@@ -8,9 +8,10 @@
 
 #include "foundation.h"
 
-const double EPS = 1e-8;
+const double EPS = 1e-5;
 const double INFD = 1e20;
 const int BUFFER_SIZE = 1024;
+const int THREAD_NUM = 8;
 
 double sqr(double x) {
   return x * x;
