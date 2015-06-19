@@ -63,9 +63,9 @@ Vector Scene::getPhongColor(const Ray &r, const CollideInfo &info, const Attribu
   }
   if (info.distance > 0) {
     color = attr.ka * ambLight * self;
-    double rate = 1.0 / lightSample / lightSample;
-    for (int i = 0; i < lightSample; i++)
-      for (int j = 0; j < lightSample; j++) {
+    double rate = 1.0 / (lightSample + 1) / (lightSample + 1);
+    for (int i = 0; i <= lightSample; i++)
+      for (int j = 0; j <= lightSample; j++) {
         Vector p = light.ptr + ((double)i / lightSample * light.x) + ((double)j / lightSample * light.y) ;
         Vector lm = p - info.reflect.position;
         double dis = norm(lm);
@@ -136,7 +136,11 @@ void Scene::thread() {
       printf("%d\n", px);
     }
     mtx.unlock();
-    image[x][y] = trace(camera.getRay(x, y), 0);
+    auto rv = camera.getRay(x, y);
+    for (const auto &r : rv) {
+      image[x][y] = image[x][y] + trace(r, 0);
+    }
+    image[x][y] = image[x][y] / rv.size();
   }
 }
 

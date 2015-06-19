@@ -16,9 +16,11 @@ class Camera {
 public:
   Vector filmCenter, filmHeight, filmWidth, position;
   int pixHeight, pixWidth;
-  
-  Vector getFilm(int row, int col);
-  Ray getRay(int row, int col);
+  int sample;
+  double aperture;
+  double dis;
+  Vector getFilm(double row, double col);
+  std::vector<Ray> getRay(int row, int col);
 };
 
 #endif /* defined(__TraceRay__camera__) */

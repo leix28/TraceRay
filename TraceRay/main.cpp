@@ -8,28 +8,19 @@
 
 #include <iostream>
 #include "scene.h"
-//#include "opencv2/opencv.hpp"
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-//  auto tmp = cv::imread(std::string("floor.png"));
-//  std::cout << tmp.dims << " " << tmp.rows << " " << tmp.cols << " " << tmp.channels() << std::endl;
-//  scene.image.resize(600, std::vector<Vector>(600));
-//  for (int i = 0; i < 600; i++)
-//    for (int j = 0; j < 600; j++) {
-//      scene.image[i][j][0] = tmp.at<uint8_t>(i * 600 * 3 + j * 3 + 2) / 256.0;
-//      scene.image[i][j][1] = tmp.at<uint8_t>(i * 600 * 3 + j * 3 + 1) / 256.0;
-//      scene.image[i][j][2] = tmp.at<uint8_t>(i * 600 * 3 + j * 3 + 0) / 256.0;
-//    }
-//  scene.save("123.png");
-//  return 0;
-//  
+
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
   scene.camera.pixHeight = 1000;
   scene.camera.pixWidth = 1000;
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
+  scene.camera.aperture = 0.01;
+  scene.camera.sample = 5;
+  scene.camera.dis = 2;
   
   scene.ambLight = Vector(1, 1, 1);
   scene.MAX_DEP = 4;
@@ -115,7 +106,7 @@ int main(int argc, const char * argv[]) {
   
   
   Ball *ball = new Ball();
-  ball->position = Vector(6, 7, 8);
+  ball->position = Vector(6, 7, 7);
   ball->radius = 1.8;
   ball->attribute.ks = Vector(0.8, 0.8, 0.8);
   ball->attribute.kd = Vector(0.9, 0.9, 0.9);

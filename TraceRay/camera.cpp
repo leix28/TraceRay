@@ -8,16 +8,28 @@
 
 #include "camera.h"
 
-Vector Camera::getFilm(int row, int col) {
-  return filmCenter + filmHeight * ((double)row / pixHeight - 0.5) + filmWidth * ((double)col / pixWidth - 0.5);
+Vector Camera::getFilm(double row, double col) {
+  return filmCenter + filmHeight * (row - 0.5) + filmWidth * (col - 0.5);
 }
 
-Ray Camera::getRay(int row, int col) {
+std::vector<Ray> Camera::getRay(int row, int col) {
   Ray r;
-  r.position = getFilm(row, col);
-  r.direction = r.position - position;
-  assert(norm(r.direction) > EPS);
-  r.direction = r.direction / norm(r.direction);
-  r.inside = 0;
-  return r;
+  std::vector<Ray> rv;
+  Vector target, d, p, n;
+  p = getFilm((double)row / pixHeight, (double)col / pixWidth);
+  d = p - position;
+  d = d / norm(d);
+  n = crossProduct(filmWidth, filmHeight);
+  n = n / norm(n);
+  target = p + d * dis / innerProduct(d, n);
+  for (int i = -sample; i <= sample; i++)
+    for (int j = -sample; j <= sample; j++) {
+      r.position = getFilm((double)row / pixHeight + aperture * i / sample, (double)col / pixWidth + aperture * j / sample);
+      r.direction = target - r.position;
+      assert(norm(r.direction) > EPS);
+      r.direction = r.direction / norm(r.direction);
+      r.inside = 0;
+      rv.push_back(r);
+    }
+  return rv;
 }
