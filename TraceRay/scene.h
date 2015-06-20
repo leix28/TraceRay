@@ -26,7 +26,7 @@ public:
   Camera camera;
   Vector trace(const Ray &r, int dep);
   std::pair<CollideInfo, Attribute> getCollide(const Ray &r);
-  Vector getPhongColor(const Ray &r, const CollideInfo &info, const Attribute &attr);
+  Vector getDiffuseColor(const Ray &r, const CollideInfo &info, const Attribute &attr);
   void render();
   void save(std::string filename);
   void thread();

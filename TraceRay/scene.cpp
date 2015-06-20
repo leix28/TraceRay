@@ -55,7 +55,7 @@ std::pair<CollideInfo, Attribute> Scene::getCollide(const Ray &r) {
   return make_pair(info, attr);
 }
 
-Vector Scene::getPhongColor(const Ray &r, const CollideInfo &info, const Attribute &attr) {
+Vector Scene::getDiffuseColor(const Ray &r, const CollideInfo &info, const Attribute &attr) {
   Vector color;
   Vector self = Vector(1, 1, 1);
   if (attr.hasimg) {
@@ -82,9 +82,6 @@ Vector Scene::getPhongColor(const Ray &r, const CollideInfo &info, const Attribu
         double t = innerProduct(lm, info.normal);
         if (t > 0)
           color = color + rate * t * attr.kd * light.attribute.kd * self;
-        t = innerProduct(-r.direction, reflect(-lm, info.normal));
-        if (t > 0)
-          color = color + rate * pow(t, attr.alpha) * attr.ks * light.attribute.ks;
       }
   }
   return color;
@@ -109,13 +106,13 @@ Vector Scene::trace(const Ray &r, int dep) {
   }
   
   Vector color;
-  color = attr.pd * getPhongColor(r, info, attr);
+  color = getDiffuseColor(r, info, attr);
 
   if (info.reflectValid)
-    color = color + attr.ps * trace(info.reflect, dep + 1);
+    color = color + attr.ks * trace(info.reflect, dep + 1);
   
   if (info.transparentValid)
-    color = color + attr.pt * trace(info.transparent, dep + 1);
+    color = color + attr.kt * trace(info.transparent, dep + 1);
   
   return scale(color);
 }
@@ -145,6 +142,7 @@ void Scene::thread() {
 }
 
 void Scene::render() {
+  trace(camera.getRay(500, 400)[0], 0);
   image.clear();
   image.resize(camera.pixHeight, std::vector<Vector>(camera.pixWidth));
   

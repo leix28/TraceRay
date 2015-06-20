@@ -19,8 +19,17 @@ std::vector<Ray> Camera::getRay(int row, int col) {
   p = getFilm((double)row / pixHeight, (double)col / pixWidth);
   d = p - position;
   d = d / norm(d);
+  if (sample == 0) {
+    r.position = p;
+    r.direction = d;
+    rv.push_back(r);
+    return rv;
+  }
+
   n = crossProduct(filmWidth, filmHeight);
   n = n / norm(n);
+
+
   target = p + d * dis / innerProduct(d, n);
   for (int i = -sample; i <= sample; i++)
     for (int j = -sample; j <= sample; j++) {

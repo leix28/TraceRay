@@ -16,9 +16,7 @@ extern const char BALL;
 extern const char RECT;
 
 struct Attribute {
-  Vector ks, kd, ka;  //Phong specular/diffuse/ambient
-  double alpha;       //Phone shininess
-  Vector pd, ps, pt;  //TraceRay diffuse/specular/transparent
+  Vector ks, kd, ka, kt;  //Phong specular/diffuse/ambient
   double index;
   std::vector< std::vector<Vector> > *img;
   bool hasimg = 0;
