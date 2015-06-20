@@ -55,36 +55,64 @@ std::pair<CollideInfo, Attribute> Scene::getCollide(const Ray &r) {
   return make_pair(info, attr);
 }
 
-Vector Scene::getDiffuseColor(const Ray &r, const CollideInfo &info, const Attribute &attr) {
-  Vector color;
-  Vector self = Vector(1, 1, 1);
-  if (attr.hasimg) {
-    self = (*attr.img)[info.x][info.y];
+Ray Scene::getDiffuse(const CollideInfo &info, const Attribute &attr) {
+  double t = sqrt((double)rand() / RAND_MAX);
+  Vector v;
+  v[2] = t;
+  v[0] = (double)rand() / RAND_MAX;
+  v[1] = sqrt(1 - v[0] * v[0]);
+  v[0] *= sqrt(1 - v[2] * v[2]);
+  v[1] *= sqrt(1 - v[2] * v[2]);
+  double theta = acos(info.normal[2]);
+  double t1 = cos(theta) * v[1] + sin(theta) * v[2];
+  double t2 = -sin(theta) * v[1] + cos(theta) * v[2];
+  v[1] = t1; v[2] = t2;
+  
+  if (-EPS < info.normal[1] && info.normal[1] < EPS) {
+    if (info.normal[0] >= 0)
+      theta = PI / 2;
+    else
+      theta = -PI / 2;
+  } else {
+    theta = atan(info.normal[0] / info.normal[1]);
+    if (info.normal[1] < 0) theta += PI;
   }
-  if (info.distance > 0) {
-    color = attr.ka * ambLight * self;
-    double rate = 1.0 / (lightSample + 1) / (lightSample + 1);
-    for (int i = 0; i <= lightSample; i++)
-      for (int j = 0; j <= lightSample; j++) {
-        Vector p = light.ptr + ((double)i / lightSample * light.x) + ((double)j / lightSample * light.y) ;
-        Vector lm = p - info.reflect.position;
-        double dis = norm(lm);
-        if (dis < EPS) continue;
-        lm = lm / norm(lm);
-        
-        Ray lt;
-        lt.position = info.reflect.position;
-        lt.direction = lm;
-        lt.inside = info.reflect.inside;
-        double sha = getCollide(lt).first.distance;
-        if (sha > 0 && sha < dis) continue;
-        
-        double t = innerProduct(lm, info.normal);
-        if (t > 0)
-          color = color + rate * t * attr.kd * light.attribute.kd * self;
-      }
+  
+  double t0 = cos(theta) * v[0] + sin(theta) * v[1];
+  t1 = -sin(theta) * v[0] + cos(theta) * v[1];
+  v[0] = t0;
+  v[1] = t1;
+  
+  Ray r;
+  r.direction = v;
+  assert(fabs(norm(v) - 1) < EPS);
+  assert(innerProduct(r.direction, info.normal) >= 0);
+  r.position = info.reflect.position;
+  return r;
+}
+
+std::pair<char, Ray> Scene::mcSelect(const CollideInfo &info, const Attribute &attr) {
+  double a[3];
+  a[0] = sum(attr.kd);
+  a[1] = a[0] + (info.reflectValid ? sum(attr.ks) : 0);
+  a[2] = a[1] + (info.transparentValid ? sum(attr.kt) : 0);
+  double t = (double)rand() / RAND_MAX * a[2];
+  if (t < a[0]) {
+    return make_pair('d', getDiffuse(info, attr));
+  } else if (t < a[1]) {
+    return make_pair('s', info.reflect);
+  } else if (t < a[2]) {
+    return make_pair('t', info.transparent);
   }
-  return color;
+  assert(0);
+}
+
+Vector Scene::mix(const Vector &a, const Vector &b) {
+  Vector c;
+  c = a * b;
+  if (sum(c) > EPS)
+    c = c / sum(c) * sum(a);
+  return c;
 }
 
 Vector Scene::trace(const Ray &r, int dep) {
@@ -104,17 +132,32 @@ Vector Scene::trace(const Ray &r, int dep) {
     else
       return light.attribute.kd;
   }
-  
-  Vector color;
-  color = getDiffuseColor(r, info, attr);
 
-  if (info.reflectValid)
-    color = color + attr.ks * trace(info.reflect, dep + 1);
+  Vector self(1, 1, 1);
+  if (attr.hasimg) {
+    self = (*attr.img)[info.x][info.y];
+  }
+
   
-  if (info.transparentValid)
-    color = color + attr.kt * trace(info.transparent, dep + 1);
+  Vector color = attr.ka * ambLight * self;
+  Vector tot = attr.kd;
+  if (info.reflectValid) tot = tot + attr.ks;
+  if (info.transparentValid) tot = tot + attr.kt;
+  if (sum(tot) < EPS) return color;
+  double rate = sum(tot) / (3 - sum(attr.ka));
   
-  return scale(color);
+  auto tt = mcSelect(info, attr);
+
+  Vector c = trace(tt.second, dep + 1);
+
+  if (tt.first == 'd') {
+    color = color + rate * mix(c, attr.kd * self);
+  } else if (tt.first == 's') {
+    color = color + rate * mix(c, attr.ks * self);
+  } else if (tt.first == 't') {
+    color = color + rate * mix(c, attr.kt * self);
+  }
+  return color;
 }
 
 void Scene::thread() {
@@ -135,14 +178,15 @@ void Scene::thread() {
     mtx.unlock();
     auto rv = camera.getRay(x, y);
     for (const auto &r : rv) {
-      image[x][y] = image[x][y] + trace(r, 0);
+      for (int i = 0; i < MC_NUM; i++) {
+        image[x][y] = image[x][y] + trace(r, 0);
+      }
     }
-    image[x][y] = image[x][y] / rv.size();
+    image[x][y] = image[x][y] / rv.size() / MC_NUM;
   }
 }
 
 void Scene::render() {
-  trace(camera.getRay(500, 400)[0], 0);
   image.clear();
   image.resize(camera.pixHeight, std::vector<Vector>(camera.pixWidth));
   

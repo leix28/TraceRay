@@ -18,6 +18,7 @@
 class Scene {
 public:
   int MAX_DEP;
+  int MC_NUM;
   std::vector< std::pair<char, void*> > item;
   Rect light;
   int lightSample;
@@ -25,8 +26,10 @@ public:
   std::vector< std::vector<Vector> > image;
   Camera camera;
   Vector trace(const Ray &r, int dep);
+  Vector mix(const Vector &a, const Vector &b);
+  Ray getDiffuse(const CollideInfo &info, const Attribute &attr);
   std::pair<CollideInfo, Attribute> getCollide(const Ray &r);
-  Vector getDiffuseColor(const Ray &r, const CollideInfo &info, const Attribute &attr);
+  std::pair<char, Ray> mcSelect(const CollideInfo &info, const Attribute &attr);
   void render();
   void save(std::string filename);
   void thread();

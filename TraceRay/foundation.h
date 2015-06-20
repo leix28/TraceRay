@@ -27,6 +27,7 @@ extern const double EPS;
 extern const double INFD;
 extern const int BUFFER_SIZE;
 extern const int THREAD_NUM;
+extern const double PI;
 
 double sqr(double x);
 
@@ -41,6 +42,7 @@ private:
 };
 
 Vector scale(const Vector &x);
+double sum(const Vector &x);
 double norm(const Vector &x);
 Vector operator + (const Vector &a, const Vector &b);
 Vector operator - (const Vector &a, const Vector &b);

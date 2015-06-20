@@ -12,6 +12,7 @@ const double EPS = 1e-5;
 const double INFD = 1e20;
 const int BUFFER_SIZE = 1024;
 const int THREAD_NUM = 16;
+const double PI = 3.1415926536;
 
 double sqr(double x) {
   return x * x;
@@ -37,6 +38,10 @@ double Vector::operator [] (const int id) const {
   if (id == 1) return y;
   if (id == 2) return z;
   assert(0);
+}
+
+double sum(const Vector &x) {
+  return x[0] + x[1] + x[2];
 }
 
 Vector scale(const Vector &x) {

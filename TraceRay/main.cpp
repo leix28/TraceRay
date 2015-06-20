@@ -11,15 +11,16 @@
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-
+  scene.MC_NUM = 1000;
+  
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
-  scene.camera.pixHeight = 1000;
-  scene.camera.pixWidth = 1000;
+  scene.camera.pixHeight = 500;
+  scene.camera.pixWidth = 500;
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
-  scene.camera.aperture = 0.01;
-  scene.camera.sample = 0;
+  scene.camera.aperture = 0.001;
+  scene.camera.sample = 1;
   scene.camera.dis = 4;
 
   scene.ambLight = Vector(1, 1, 1);
@@ -31,7 +32,7 @@ int main(int argc, const char * argv[]) {
   rect->x = Vector(10, 0, 0);
   rect->y = Vector(0, 0, 10);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0.7, 0.7, 0.7);
+  rect->attribute.kd = Vector(0.3, 0.3, 0.3);
   rect->attribute.ka = Vector(0.3, 0.3, 0.3);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
@@ -42,7 +43,7 @@ int main(int argc, const char * argv[]) {
   rect->x = Vector(0, 0, 10);
   rect->y = Vector(10, 0, 0);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0.7, 0.7, 0.7);
+  rect->attribute.kd = Vector(0.3, 0.3, 0.3);
   rect->attribute.ka = Vector(0.3, 0.3, 0.3);
   rect->attribute.kt = Vector(0, 0, 0);
   rect->attribute.loadImg("floor.png");
@@ -54,7 +55,7 @@ int main(int argc, const char * argv[]) {
   rect->x = Vector(0, 10, 0);
   rect->y = Vector(0, 0, 10);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0.7, 0, 0);
+  rect->attribute.kd = Vector(0.3, 0, 0);
   rect->attribute.ka = Vector(0.3, 0, 0);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
@@ -65,7 +66,7 @@ int main(int argc, const char * argv[]) {
   rect->x = Vector(0, 0, 10);
   rect->y = Vector(0, 10, 0);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0, 0, 0.7);
+  rect->attribute.kd = Vector(0, 0, 0.3);
   rect->attribute.ka = Vector(0, 0, 0.3);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
@@ -76,7 +77,7 @@ int main(int argc, const char * argv[]) {
   rect->x = Vector(10, 0, 0);
   rect->y = Vector(0, 10, 0);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0.7, 0.7, 0.7);
+  rect->attribute.kd = Vector(0.3, 0.3, 0.3);
   rect->attribute.ka = Vector(0.3, 0.3, 0.3);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
@@ -86,16 +87,16 @@ int main(int argc, const char * argv[]) {
   ball->position = Vector(6, 7, 7);
   ball->radius = 1.8;
   ball->attribute.ks = Vector(0, 0, 0);
-  ball->attribute.kd = Vector(0, 0, 0);
+  ball->attribute.kd = Vector(0.2, 0.2, 0.2);
   ball->attribute.ka = Vector(0, 0, 0);
-  ball->attribute.kt = Vector(1, 1, 1);
+  ball->attribute.kt = Vector(0.8, 0.8, 0.8);
   ball->attribute.index = 1.9;
   scene.item.push_back(make_pair(BALL, ball));
 
   Attribute attr;
-  attr.ks = Vector(0, 0, 0);
-  attr.kd = Vector(1, 1, 1);
-  attr.ka = Vector(0, 0, 0);
+  attr.ks = Vector(0.1, 0.1, 0.1);
+  attr.kd = Vector(0.2, 0.2, 0.2);
+  attr.ka = Vector(0.4, 0.4, 0.4);
   attr.kt = Vector(0, 0, 0);
   attr.loadImg("marble.png");
   insertBox(scene.item, Vector(1, 0, 4), Vector(2, 0, -2), Vector(0, 6, 0), Vector(2, 0, 2), attr);
@@ -108,7 +109,7 @@ int main(int argc, const char * argv[]) {
   lit.attribute.kd = Vector(1, 1, 1);
   lit.attribute.ks = Vector(1, 1, 1);
   scene.light = lit;
-  scene.lightSample = 5;
+  scene.lightSample = 4;
 
   scene.render();
   scene.save("out.png");
