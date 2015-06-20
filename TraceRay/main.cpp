@@ -19,12 +19,12 @@ int main(int argc, const char * argv[]) {
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
   scene.camera.aperture = 0.01;
-  scene.camera.sample = 10;
+  scene.camera.sample = 5;
   scene.camera.dis = 4;
-  
+
   scene.ambLight = Vector(1, 1, 1);
   scene.MAX_DEP = 4;
-  
+
   //ceil
   Rect *rect = new Rect();
   rect->ptr = Vector(0, 10, 0);
@@ -37,7 +37,7 @@ int main(int argc, const char * argv[]) {
   rect->attribute.pd = Vector(1, 1, 1);
   rect->attribute.ps = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
-  
+
   //floor
   rect = new Rect();
   rect->ptr = Vector(0, 0, 0);
@@ -51,7 +51,7 @@ int main(int argc, const char * argv[]) {
   rect->attribute.ps = Vector(0, 0, 0);
   rect->attribute.loadImg("floor.png");
   scene.item.push_back(make_pair(RECT, rect));
-  
+
   //left
   rect = new Rect();
   rect->ptr = Vector(0, 0, 0);
@@ -64,7 +64,7 @@ int main(int argc, const char * argv[]) {
   rect->attribute.pd = Vector(1, 1, 1);
   rect->attribute.ps = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
-  
+
   //right
   rect = new Rect();
   rect->ptr = Vector(10, 0, 0);
@@ -77,7 +77,7 @@ int main(int argc, const char * argv[]) {
   rect->attribute.pd = Vector(1, 1, 1);
   rect->attribute.ps = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
-  
+
   //back
   rect = new Rect();
   rect->ptr = Vector(0, 0, 0);
@@ -103,8 +103,8 @@ int main(int argc, const char * argv[]) {
 //  rect->attribute.pd = Vector(0.8, 0.8, 0.8);
 //  rect->attribute.ps = Vector(0, 0, 0);
 //  scene.item.push_back(make_pair(RECT, rect));
-  
-  
+
+
   Ball *ball = new Ball();
   ball->position = Vector(6, 7, 7);
   ball->radius = 1.8;
@@ -127,7 +127,7 @@ int main(int argc, const char * argv[]) {
   attr.loadImg("marble.png");
   insertBox(scene.item, Vector(1, 0, 4), Vector(2, 0, -2), Vector(0, 6, 0), Vector(2, 0, 2), attr);
   insertBox(scene.item, Vector(5, 0, 7), Vector(2, 0, 0), Vector(0, 3, 0), Vector(0, 0, 2), attr);
-  
+
   Rect lit;
   lit.ptr = Vector(4, 9.99, 4);
   lit.x = Vector(2, 0, 0);
@@ -135,8 +135,8 @@ int main(int argc, const char * argv[]) {
   lit.attribute.kd = Vector(1, 1, 1);
   lit.attribute.ks = Vector(1, 1, 1);
   scene.light = lit;
-  scene.lightSample = 10;
-  
+  scene.lightSample = 5;
+
   scene.render();
   scene.save("out.png");
   return 0;
