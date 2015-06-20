@@ -19,8 +19,8 @@ int main(int argc, const char * argv[]) {
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
   scene.camera.aperture = 0.01;
-  scene.camera.sample = 5;
-  scene.camera.dis = 2;
+  scene.camera.sample = 10;
+  scene.camera.dis = 4;
   
   scene.ambLight = Vector(1, 1, 1);
   scene.MAX_DEP = 4;
@@ -124,6 +124,7 @@ int main(int argc, const char * argv[]) {
   attr.ka = Vector(0.3, 0.3, 0.3);
   attr.alpha = 10;
   attr.pd = Vector(1, 1, 1);
+  attr.loadImg("marble.png");
   insertBox(scene.item, Vector(1, 0, 4), Vector(2, 0, -2), Vector(0, 6, 0), Vector(2, 0, 2), attr);
   insertBox(scene.item, Vector(5, 0, 7), Vector(2, 0, 0), Vector(0, 3, 0), Vector(0, 0, 2), attr);
   
