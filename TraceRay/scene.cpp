@@ -86,7 +86,7 @@ Ray Scene::getDiffuse(const CollideInfo &info, const Attribute &attr) {
   Ray r;
   r.direction = v;
   assert(fabs(norm(v) - 1) < EPS);
-  assert(innerProduct(r.direction, info.normal) >= 0);
+  assert(innerProduct(r.direction, info.normal) >= -EPS);
   r.position = info.reflect.position;
   return r;
 }

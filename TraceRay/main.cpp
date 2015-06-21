@@ -15,16 +15,16 @@ int main(int argc, const char * argv[]) {
   
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
-  scene.camera.pixHeight = 500;
-  scene.camera.pixWidth = 500;
+  scene.camera.pixHeight = 1000;
+  scene.camera.pixWidth = 1000;
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
   scene.camera.aperture = 0.001;
-  scene.camera.sample = 1;
+  scene.camera.sample = 0;
   scene.camera.dis = 4;
 
   scene.ambLight = Vector(1, 1, 1);
-  scene.MAX_DEP = 4;
+  scene.MAX_DEP = 15;
 
   //ceil
   Rect *rect = new Rect();
@@ -86,16 +86,16 @@ int main(int argc, const char * argv[]) {
   Ball *ball = new Ball();
   ball->position = Vector(6, 7, 7);
   ball->radius = 1.8;
-  ball->attribute.ks = Vector(0, 0, 0);
-  ball->attribute.kd = Vector(0.2, 0.2, 0.2);
+  ball->attribute.ks = Vector(0.2, 0.2, 0.2);
+  ball->attribute.kd = Vector(0, 0, 0);
   ball->attribute.ka = Vector(0, 0, 0);
   ball->attribute.kt = Vector(0.8, 0.8, 0.8);
-  ball->attribute.index = 1.9;
+  ball->attribute.index = 1.7;
   scene.item.push_back(make_pair(BALL, ball));
 
   Attribute attr;
-  attr.ks = Vector(0.1, 0.1, 0.1);
-  attr.kd = Vector(0.2, 0.2, 0.2);
+  attr.ks = Vector(0, 0, 0);
+  attr.kd = Vector(0.4, 0.4, 0.4);
   attr.ka = Vector(0.4, 0.4, 0.4);
   attr.kt = Vector(0, 0, 0);
   attr.loadImg("marble.png");
@@ -109,7 +109,7 @@ int main(int argc, const char * argv[]) {
   lit.attribute.kd = Vector(1, 1, 1);
   lit.attribute.ks = Vector(1, 1, 1);
   scene.light = lit;
-  scene.lightSample = 4;
+  scene.lightSample = 2;
 
   scene.render();
   scene.save("out.png");
