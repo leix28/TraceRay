@@ -19,16 +19,14 @@
 #include <vector>
 #include <map>
 #include <set>
-#define EPS 1e-8
+
+extern const double EPS;
 
 class Vector {
 public:
   Vector();
   Vector(double _x, double _y, double _z);
-  double& operator [] (const int id);
-  double operator [] (const int id) const;
-  
-private:
+
   double x, y, z;
 };
 
