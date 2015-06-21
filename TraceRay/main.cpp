@@ -15,8 +15,8 @@ int main(int argc, const char * argv[]) {
   
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
-  scene.camera.pixHeight = 1000;
-  scene.camera.pixWidth = 1000;
+  scene.camera.pixHeight = 500;
+  scene.camera.pixWidth = 500;
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
   scene.camera.aperture = 0.001;

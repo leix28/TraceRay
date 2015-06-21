@@ -29,7 +29,7 @@ public:
   Vector mix(const Vector &a, const Vector &b);
   Ray getDiffuse(const CollideInfo &info, const Attribute &attr);
   std::pair<CollideInfo, Attribute> getCollide(const Ray &r);
-  std::pair<char, Ray> mcSelect(const CollideInfo &info, const Attribute &attr);
+  std::pair<char, Ray> mcSelect(const CollideInfo &info, const Attribute &attr, const Vector &self);
   void render();
   void save(std::string filename);
   void thread();
