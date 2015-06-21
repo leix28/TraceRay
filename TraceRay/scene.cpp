@@ -151,7 +151,6 @@ void Scene::thread() {
 }
 
 void Scene::render() {
-  trace(camera.getRay(20, 10)[0], 0);
   image.clear();
   image.resize(camera.pixHeight, std::vector<Vector>(camera.pixWidth));
   

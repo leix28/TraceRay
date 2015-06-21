@@ -22,6 +22,7 @@ std::vector<Ray> Camera::getRay(int row, int col) {
   if (sample == 0) {
     r.position = p;
     r.direction = d;
+    r.inside = 0;
     rv.push_back(r);
     return rv;
   }
