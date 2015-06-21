@@ -19,17 +19,24 @@
 #include <vector>
 #include <map>
 #include <set>
+using std::make_pair;
 
 extern const double EPS;
+
+inline double sqr(double x) {return x * x; }
 
 class Vector {
 public:
   Vector();
   Vector(double _x, double _y, double _z);
 
+  double& operator [] (const int id);
+  double operator [] (const int id) const;
   double x, y, z;
 };
 
+double norm(const Vector &v);
+Vector operator - (const Vector &a);
 Vector operator + (const Vector &a, const Vector &b);
 Vector operator - (const Vector &a, const Vector &b);
 Vector operator * (const double a, const Vector &b);

@@ -27,6 +27,7 @@
 		C213BDB71AFE744B002EA620 /* libopencv_video.2.4.11.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C213BDA51AFE744B002EA620 /* libopencv_video.2.4.11.dylib */; };
 		C213BDB81AFE744B002EA620 /* libopencv_videostab.2.4.11.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C213BDA61AFE744B002EA620 /* libopencv_videostab.2.4.11.dylib */; };
 		C26895791B30308F00DBD635 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C26895771B30308F00DBD635 /* foundation.cpp */; };
+		C2A27BAB1B36DEB7004A256B /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A27BA91B36DEB7004A256B /* core.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,6 +65,8 @@
 		C213BDA61AFE744B002EA620 /* libopencv_videostab.2.4.11.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_videostab.2.4.11.dylib; path = lib/libopencv_videostab.2.4.11.dylib; sourceTree = "<group>"; };
 		C26895771B30308F00DBD635 /* foundation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = foundation.cpp; sourceTree = "<group>"; };
 		C26895781B30308F00DBD635 /* foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = foundation.h; sourceTree = "<group>"; };
+		C2A27BA91B36DEB7004A256B /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
+		C2A27BAA1B36DEB7004A256B /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 			children = (
 				C213BD8D1AFE72C5002EA620 /* main.cpp */,
 				C26895771B30308F00DBD635 /* foundation.cpp */,
+				C2A27BA91B36DEB7004A256B /* core.cpp */,
+				C2A27BAA1B36DEB7004A256B /* core.h */,
 				C26895781B30308F00DBD635 /* foundation.h */,
 			);
 			path = TraceRay;
@@ -205,6 +210,7 @@
 			files = (
 				C26895791B30308F00DBD635 /* foundation.cpp in Sources */,
 				C213BD8E1AFE72C5002EA620 /* main.cpp in Sources */,
+				C2A27BAB1B36DEB7004A256B /* core.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

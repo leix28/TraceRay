@@ -18,6 +18,24 @@ Vector::Vector(double _x, double _y, double _z) {
   x = _x; y = _y; z = _z;
 }
 
+double& Vector::operator [] (const int id) {
+  assert(0 <= id && id < 3);
+  return (id == 0) ? x : (id == 1) ? y : z;
+}
+
+double Vector::operator [] (const int id) const {
+  assert(0 <= id && id < 3);
+  return (id == 0) ? x : (id == 1) ? y : z;
+}
+
+double norm(const Vector &v) {
+  return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
+Vector operator - (const Vector &a) {
+  return Vector(-a.x, -a.y, -a.z);
+}
+
 Vector operator + (const Vector &a, const Vector &b) {
   return Vector(a.x + b.x, a.y + b.y, a.z + b.z);
 }
