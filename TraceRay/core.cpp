@@ -10,6 +10,9 @@
 const char RECT = 'r';
 const char BALL = 'b';
 
+Ray::Ray() {inside = 0; }
+Attribute::Attribute() {index = 1; }
+
 CollideInfo Ball::collide(const Ray &r) {
   CollideInfo info;
   info.distance = -1;

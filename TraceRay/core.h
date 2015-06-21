@@ -19,12 +19,14 @@ class Ray {
 public:
   Vector position, direction;
   bool inside;
+  Ray();
 };
 
 class Attribute {
 public:
   Vector ka, kd, ks, kt;
   double index;
+  Attribute();
 };
 
 class CollideInfo {
