@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
   rect->dx = Vector(0, 10, 0);
   rect->dy = Vector(0, 0, 10);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0.8, 0.8, 0.8);
+  rect->attribute.kd = Vector(0.8, 0, 0);
   rect->attribute.ka = Vector(0, 0, 0);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
@@ -66,7 +66,7 @@ int main(int argc, const char * argv[]) {
   rect->dx = Vector(0, 0, 10);
   rect->dy = Vector(0, 10, 0);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0.8, 0.8, 0.8);
+  rect->attribute.kd = Vector(0, 0, 0.8);
   rect->attribute.ka = Vector(0, 0, 0);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));

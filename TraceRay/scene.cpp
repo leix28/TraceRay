@@ -7,16 +7,6 @@
 //
 
 #include "scene.h"
-
-//
-//  scene.cpp
-//  TraceRay
-//
-//  Created by LazyLie on 15/6/18.
-//  Copyright (c) 2015年 LeonardXu. All rights reserved.
-//
-
-#include "scene.h"
 #include "opencv2/opencv.hpp"
 
 void Scene::save(std::string filename) {
@@ -29,11 +19,8 @@ void Scene::save(std::string filename) {
   
   for (auto i = 0; i < h; i++)
     for (auto j = 0; j < w; j++) {
-//      out.at<double>(i * w * 3 + j * 3) = image[i][j][2] * 256;
-//      out.at<double>(i * w * 3 + j * 3 + 1) = image[i][j][1] * 256;
-//      out.at<double>(i * w * 3 + j * 3 + 2) = image[i][j][0] * 256;
-      out.at<double>(i * w * 3 + j * 3) = image[i][j][0] * 256;
-      out.at<double>(i * w * 3 + j * 3 + 1) = image[i][j][0] * 256;
+      out.at<double>(i * w * 3 + j * 3) = image[i][j][2] * 256;
+      out.at<double>(i * w * 3 + j * 3 + 1) = image[i][j][1] * 256;
       out.at<double>(i * w * 3 + j * 3 + 2) = image[i][j][0] * 256;
     }
   
@@ -169,7 +156,7 @@ void Scene::render() {
   image.resize(camera.pixHeight, std::vector<Vector>(camera.pixWidth));
   
   std::thread *pool = new std::thread[THREAD_NUM];
-  for (int c = 0; c < 1; c++) {
+  for (int c = 0; c < 3; c++) {
     px = 0;
     py = 0;
     channel = c;
