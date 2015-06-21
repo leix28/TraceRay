@@ -94,6 +94,22 @@ Ray transparent(const Ray &in, const Vector &position, const Vector &normal, con
   return tra;
 }
 
+Ray diffuse(const Ray &in, const Vector &position, const Vector &normal) {
+  Ray dif;
+  dif.position = position;
+  dif.direction.x = (double)rand() / RAND_MAX * 2 - 1;
+  dif.direction.y = (double)rand() / RAND_MAX * 2 - 1;
+  dif.direction.z = (double)rand() / RAND_MAX * 2 - 1;
+  while (norm(dif.direction) < EPS || norm(dif.direction) > 1 || innerProduct(dif.direction, normal) < 0) {
+    dif.direction.x = (double)rand() / RAND_MAX * 2 - 1;
+    dif.direction.y = (double)rand() / RAND_MAX * 2 - 1;
+    dif.direction.z = (double)rand() / RAND_MAX * 2 - 1;
+  }
+  dif.direction = dif.direction / norm(dif.direction);
+  dif.inside = in.inside;
+  return dif;
+}
+
 void insertBox(std::vector< std::pair<char, void*> > &item, const Vector &p, const Vector &x, const Vector &y, const Vector &z, const Attribute &attr) {
   Rect *rect = new Rect();
   rect->attribute = attr;

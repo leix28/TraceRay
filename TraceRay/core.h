@@ -56,4 +56,6 @@ Ray reflect(const Ray &in, const Vector &position, const Vector &normal);
 
 Ray transparent(const Ray &in, const Vector &position, const Vector &normal, const double index);
 
+Ray diffuse(const Ray &in, const Vector &position, const Vector &normal);
+
 #endif /* defined(__TraceRay__core__) */

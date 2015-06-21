@@ -29,6 +29,7 @@
 		C26895791B30308F00DBD635 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C26895771B30308F00DBD635 /* foundation.cpp */; };
 		C2A27BAB1B36DEB7004A256B /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A27BA91B36DEB7004A256B /* core.cpp */; };
 		C2A27BAE1B36E732004A256B /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A27BAC1B36E732004A256B /* camera.cpp */; };
+		C2A27BB11B36E7B5004A256B /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A27BAF1B36E7B5004A256B /* scene.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -70,6 +71,8 @@
 		C2A27BAA1B36DEB7004A256B /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		C2A27BAC1B36E732004A256B /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
 		C2A27BAD1B36E732004A256B /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
+		C2A27BAF1B36E7B5004A256B /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = "<group>"; };
+		C2A27BB01B36E7B5004A256B /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,8 @@
 				C2A27BA91B36DEB7004A256B /* core.cpp */,
 				C2A27BAC1B36E732004A256B /* camera.cpp */,
 				C2A27BAD1B36E732004A256B /* camera.h */,
+				C2A27BAF1B36E7B5004A256B /* scene.cpp */,
+				C2A27BB01B36E7B5004A256B /* scene.h */,
 				C2A27BAA1B36DEB7004A256B /* core.h */,
 				C26895781B30308F00DBD635 /* foundation.h */,
 			);
@@ -213,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2A27BB11B36E7B5004A256B /* scene.cpp in Sources */,
 				C2A27BAE1B36E732004A256B /* camera.cpp in Sources */,
 				C26895791B30308F00DBD635 /* foundation.cpp in Sources */,
 				C213BD8E1AFE72C5002EA620 /* main.cpp in Sources */,

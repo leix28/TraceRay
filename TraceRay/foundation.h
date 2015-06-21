@@ -20,8 +20,11 @@
 #include <map>
 #include <set>
 using std::make_pair;
+using std::max;
 
 extern const double EPS;
+extern const double INFD;
+extern const int THREAD_NUM;
 
 inline double sqr(double x) {return x * x; }
 
