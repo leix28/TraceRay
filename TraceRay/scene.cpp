@@ -96,6 +96,7 @@ std::pair<char, Ray> Scene::mcSelect(const CollideInfo &info, const Attribute &a
   a[0] = sum(attr.kd * self);
   a[1] = a[0] + (info.reflectValid ? sum(attr.ks * self): 0);
   a[2] = a[1] + (info.transparentValid ? sum(attr.kt * self): 0);
+  assert(a[2] > EPS);
   double t = (double)rand() / RAND_MAX * a[2];
   if (t < a[0]) {
     return make_pair('d', getDiffuse(info, attr));
@@ -143,7 +144,7 @@ Vector Scene::trace(const Ray &r, int dep) {
   Vector tot = attr.kd * self;
   if (info.reflectValid) tot = tot + attr.ks * self;
   if (info.transparentValid) tot = tot + attr.kt * self;
-  if (sum(tot) < EPS) return color;
+  if (sum(tot) < 2 * EPS) return color;
   double rate = sum(tot) / (3 - sum(attr.ka));
   
   auto tt = mcSelect(info, attr, self);
