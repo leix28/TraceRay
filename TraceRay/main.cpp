@@ -12,16 +12,16 @@
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-  scene.MC_NUM = 1000;
+  scene.MC_NUM = 200;
   
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
-  scene.camera.pixHeight = 500;
-  scene.camera.pixWidth = 500;
+  scene.camera.pixHeight = 1000;
+  scene.camera.pixWidth = 1000;
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
   scene.camera.aperture = 0.001;
-  scene.camera.sample = 0;
+  scene.camera.sample = 1;
   scene.camera.dis = 4;
   
   scene.MAX_DEP = 5;
@@ -84,7 +84,7 @@ int main(int argc, const char * argv[]) {
   
   
   Ball *ball = new Ball();
-  ball->position = Vector(7, 2.1, 7);
+  ball->position = Vector(7, 7.5, 7);
   ball->radius = 2;
   ball->attribute.ks = Vector(0, 0, 0);
   ball->attribute.kd = Vector(0, 0, 0);
@@ -94,8 +94,8 @@ int main(int argc, const char * argv[]) {
   scene.item.push_back(make_pair(BALL, ball));
 
   ball = new Ball();
-  ball->position = Vector(3, 2.1, 3);
-  ball->radius = 2;
+  ball->position = Vector(3, 5.5, 4);
+  ball->radius = 1.5;
   ball->attribute.ks = Vector(0, 0, 0);
   ball->attribute.kd = Vector(1, 1, 1);
   ball->attribute.ka = Vector(0, 0, 0);
@@ -105,14 +105,14 @@ int main(int argc, const char * argv[]) {
   scene.item.push_back(make_pair(BALL, ball));
 
   
-//  Attribute attr;
-//  attr.ks = Vector(0.3, 0.3, 0.3);
-//  attr.kd = Vector(0.6, 0.6, 0.6);
-//  attr.ka = Vector(0, 0, 0);
-//  attr.kt = Vector(0, 0, 0);
-////  attr.loadImg("marble.png");
-//  insertBox(scene.item, Vector(1, 0, 4), Vector(2, 0, -2), Vector(0, 6, 0), Vector(2, 0, 2), attr);
-//  insertBox(scene.item, Vector(5, 0, 7), Vector(2, 0, 0), Vector(0, 3, 0), Vector(0, 0, 2), attr);
+  Attribute attr;
+  attr.ks = Vector(0.2, 0.2, 0.2);
+  attr.kd = Vector(1, 1, 1);
+  attr.ka = Vector(0, 0, 0);
+  attr.kt = Vector(0, 0, 0);
+  attr.loadImg("marble.png");
+  insertBox(scene.item, Vector(1, 0, 4), Vector(2, 0, -2), Vector(0, 4, 0), Vector(2, 0, 2), attr);
+  insertBox(scene.item, Vector(5, 0, 7), Vector(2, 0, 0), Vector(0, 3, 0), Vector(0, 0, 2), attr);
   
   Rect lit;
   lit.position = Vector(3, 9.999, 3);
@@ -123,7 +123,7 @@ int main(int argc, const char * argv[]) {
   lit.attribute.ks = Vector(0, 0, 0);
   lit.attribute.kt = Vector(0, 0, 0);
   scene.light = lit;
-  scene.lightSample = 5;
+  scene.lightSample = 4;
   
   scene.render();
   scene.save("out.png");
