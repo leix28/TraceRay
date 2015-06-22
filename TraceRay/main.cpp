@@ -12,7 +12,7 @@
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-  scene.MC_NUM = 10000;
+  scene.MC_NUM = 5000;
   
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
@@ -86,10 +86,10 @@ int main(int argc, const char * argv[]) {
   Ball *ball = new Ball();
   ball->position = Vector(5, 2, 5);
   ball->radius = 2;
-  ball->attribute.ks = Vector(0.1, 0.1, 0.1);
+  ball->attribute.ks = Vector(0, 0, 0);
   ball->attribute.kd = Vector(0, 0, 0);
   ball->attribute.ka = Vector(0, 0, 0);
-  ball->attribute.kt = Vector(0.8, 0.8, 0.8);
+  ball->attribute.kt = Vector(1, 1, 1);
   ball->attribute.index = 1.7;
   scene.item.push_back(make_pair(BALL, ball));
   
@@ -111,7 +111,7 @@ int main(int argc, const char * argv[]) {
   lit.attribute.ks = Vector(0, 0, 0);
   lit.attribute.kt = Vector(0, 0, 0);
   scene.light = lit;
-  scene.lightSample = 4;
+  scene.lightSample = 5;
   
   scene.render();
   scene.save("out.png");
