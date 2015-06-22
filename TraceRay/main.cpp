@@ -12,7 +12,7 @@
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-  scene.MC_NUM = 5000;
+  scene.MC_NUM = 1000;
   
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
@@ -32,7 +32,7 @@ int main(int argc, const char * argv[]) {
   rect->dx = Vector(10, 0, 0);
   rect->dy = Vector(0, 0, 10);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0.8, 0.8, 0.8);
+  rect->attribute.kd = Vector(0.95, 0.95, 0.8);
   rect->attribute.ka = Vector(0, 0, 0);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
@@ -43,7 +43,7 @@ int main(int argc, const char * argv[]) {
   rect->dx = Vector(0, 0, 10);
   rect->dy = Vector(10, 0, 0);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0.8, 0.8, 0.8);
+  rect->attribute.kd = Vector(0.95, 0.95, 0.8);
   rect->attribute.ka = Vector(0, 0, 0);
   rect->attribute.kt = Vector(0, 0, 0);
 //  rect->attribute.loadImg("floor.png");
@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
   rect->dx = Vector(0, 10, 0);
   rect->dy = Vector(0, 0, 10);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0.8, 0, 0);
+  rect->attribute.kd = Vector(0.7, 0.15, 0.15);
   rect->attribute.ka = Vector(0, 0, 0);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
@@ -66,7 +66,7 @@ int main(int argc, const char * argv[]) {
   rect->dx = Vector(0, 0, 10);
   rect->dy = Vector(0, 10, 0);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0, 0, 0.8);
+  rect->attribute.kd = Vector(0.4, 0.2, 0.6);
   rect->attribute.ka = Vector(0, 0, 0);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
@@ -77,14 +77,14 @@ int main(int argc, const char * argv[]) {
   rect->dx = Vector(10, 0, 0);
   rect->dy = Vector(0, 10, 0);
   rect->attribute.ks = Vector(0, 0, 0);
-  rect->attribute.kd = Vector(0.8, 0.8, 0.8);
+  rect->attribute.kd = Vector(0.95, 0.95, 0.8);
   rect->attribute.ka = Vector(0, 0, 0);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
   
   
   Ball *ball = new Ball();
-  ball->position = Vector(5, 2, 5);
+  ball->position = Vector(7, 2.1, 7);
   ball->radius = 2;
   ball->attribute.ks = Vector(0, 0, 0);
   ball->attribute.kd = Vector(0, 0, 0);
@@ -92,6 +92,17 @@ int main(int argc, const char * argv[]) {
   ball->attribute.kt = Vector(1, 1, 1);
   ball->attribute.index = 1.7;
   scene.item.push_back(make_pair(BALL, ball));
+
+  ball = new Ball();
+  ball->position = Vector(3, 2.1, 3);
+  ball->radius = 2;
+  ball->attribute.ks = Vector(1, 1, 1);
+  ball->attribute.kd = Vector(0, 0, 0);
+  ball->attribute.ka = Vector(0, 0, 0);
+  ball->attribute.kt = Vector(0, 0, 0);
+  ball->attribute.index = 1.7;
+  scene.item.push_back(make_pair(BALL, ball));
+
   
 //  Attribute attr;
 //  attr.ks = Vector(0.3, 0.3, 0.3);
@@ -103,7 +114,7 @@ int main(int argc, const char * argv[]) {
 //  insertBox(scene.item, Vector(5, 0, 7), Vector(2, 0, 0), Vector(0, 3, 0), Vector(0, 0, 2), attr);
   
   Rect lit;
-  lit.position = Vector(3, 9.99, 3);
+  lit.position = Vector(3, 9.999, 3);
   lit.dx = Vector(4, 0, 0);
   lit.dy = Vector(0, 0, 4);
   lit.attribute.ka = Vector(1, 1, 1);
