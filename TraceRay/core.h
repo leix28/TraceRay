@@ -26,7 +26,7 @@ class Attribute {
 public:
   Vector ka, kd, ks, kt;
   double index;
-  bool hasimg;
+  bool hasimg = 0;
   std::vector< std::vector<Vector> > *img;
   Attribute();
   void loadImg(std::string filename);
