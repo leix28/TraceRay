@@ -46,7 +46,7 @@ int main(int argc, const char * argv[]) {
   rect->attribute.kd = Vector(0.95, 0.95, 0.8);
   rect->attribute.ka = Vector(0, 0, 0);
   rect->attribute.kt = Vector(0, 0, 0);
-//  rect->attribute.loadImg("floor.png");
+  rect->attribute.loadImg("floor.png");
   scene.item.push_back(make_pair(RECT, rect));
   
   //left

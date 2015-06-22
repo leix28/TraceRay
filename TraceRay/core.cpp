@@ -7,11 +7,26 @@
 //
 
 #include "core.h"
+#include "opencv2/opencv.hpp"
 const char RECT = 'r';
 const char BALL = 'b';
 
 Ray::Ray() {inside = 0; }
 Attribute::Attribute() {index = 1; }
+
+void Attribute::loadImg(std::string filename) {
+  hasimg = 1;
+  img = new std::vector< std::vector<Vector> >();
+  img->clear();
+  auto tmp = cv::imread(filename);
+  img->resize(tmp.rows, std::vector<Vector>(tmp.cols));
+  for (int i = 0; i < tmp.rows; i++)
+    for (int j = 0; j < tmp.cols; j++) {
+      (*img)[i][j][0] = tmp.at<uint8_t>(i * tmp.cols * 3 + j * 3 + 2) / 256.0;
+      (*img)[i][j][1] = tmp.at<uint8_t>(i * tmp.cols * 3 + j * 3 + 1) / 256.0;
+      (*img)[i][j][2] = tmp.at<uint8_t>(i * tmp.cols * 3 + j * 3 + 0) / 256.0;
+    }
+}
 
 CollideInfo Ball::collide(const Ray &r) {
   CollideInfo info;
@@ -72,7 +87,12 @@ CollideInfo Rect::collide(const Ray &r) {
   }
   info.normal = n;
   info.index = r.inside ? (1.0 / attribute.index) : attribute.index;
-  
+  if (attribute.hasimg) {
+    info.x = ax / 0.01;
+    info.y = ay / 0.01;
+    info.x %= (*attribute.img).size();
+    info.y %= (*attribute.img)[0].size();
+  }
   return info;
 }
 

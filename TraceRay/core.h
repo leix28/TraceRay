@@ -26,12 +26,16 @@ class Attribute {
 public:
   Vector ka, kd, ks, kt;
   double index;
+  bool hasimg;
+  std::vector< std::vector<Vector> > *img;
   Attribute();
+  void loadImg(std::string filename);
 };
 
 class CollideInfo {
 public:
   double distance, index;
+  int x, y;
   Vector normal;
 };
 
