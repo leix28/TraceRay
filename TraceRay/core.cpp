@@ -28,6 +28,29 @@ void Attribute::loadImg(std::string filename) {
     }
 }
 
+std::pair<int, int> Ball::getXY(Vector p, const Vector &normal) {
+  p = p - position;
+  std::pair<int, int> ret;
+  int h = (int)(*attribute.img).size();
+  int w = (int)(*attribute.img)[0].size();
+  if (fabs(p.x) >= fabs(p.y) && fabs(p.x) >= fabs(p.z)) {
+    p = p * (radius / p.x);
+    ret.first = p.y / radius / 2 * h;
+    ret.second = p.z / radius / 2 * w;
+  } else if (fabs(p.y) > fabs(p.x) && fabs(p.y) >= fabs(p.z)) {
+    p = p * (radius / p.y);
+    ret.first = p.x / radius / 2 * w;
+    ret.second = p.z / radius / 2 * h;
+  } else {
+    p = p * (radius / p.z);
+    ret.first = p.x / radius / 2 * h;
+    ret.second = p.y / radius / 2 * w;
+  }
+  ret.first = (ret.first % h + h + h / 2) % h;
+  ret.second = (ret.second % w + w + w / 2) % w;
+  return ret;
+}
+
 CollideInfo Ball::collide(const Ray &r) {
   CollideInfo info;
   info.distance = -1;
@@ -44,6 +67,11 @@ CollideInfo Ball::collide(const Ray &r) {
     info.normal = position - (r.position + info.distance * r.direction);
     info.normal = info.normal / norm(info.normal);
     info.index = 1.0 / attribute.index;
+    if (attribute.hasimg) {
+      auto tmp = getXY(r.position + info.distance * r.direction, -info.normal);
+      info.x = tmp.first;
+      info.y = tmp.second;
+    }
     return info;
   } else {
     if (innerProduct(v, r.direction) > 0) return info;
@@ -53,6 +81,11 @@ CollideInfo Ball::collide(const Ray &r) {
     info.normal = r.position + info.distance * r.direction - position;
     info.normal = info.normal / norm(info.normal);
     info.index = attribute.index;
+    if (attribute.hasimg) {
+      auto tmp = getXY(r.position + info.distance * r.direction, info.normal);
+      info.x = tmp.first;
+      info.y = tmp.second;
+    }
     return info;
   }
 }

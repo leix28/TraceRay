@@ -96,11 +96,12 @@ int main(int argc, const char * argv[]) {
   ball = new Ball();
   ball->position = Vector(3, 2.1, 3);
   ball->radius = 2;
-  ball->attribute.ks = Vector(1, 1, 1);
-  ball->attribute.kd = Vector(0, 0, 0);
+  ball->attribute.ks = Vector(0, 0, 0);
+  ball->attribute.kd = Vector(1, 1, 1);
   ball->attribute.ka = Vector(0, 0, 0);
   ball->attribute.kt = Vector(0, 0, 0);
   ball->attribute.index = 1.7;
+  ball->attribute.loadImg("maoxian.png");
   scene.item.push_back(make_pair(BALL, ball));
 
   

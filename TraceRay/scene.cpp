@@ -109,12 +109,12 @@ double Scene::trace(const Ray &r, int dep) {
   }
   
   if (info.distance > 0) {
-    double color = attr.ka[channel];
-    double rate = attr.kd[channel] + attr.ks[channel] + attr.kt[channel];
-    if (dep >= 2 * MAX_DEP || rate < EPS) return color;
-    auto tt = mcSelect(r, info, attr);
     double self = 1;
     if (attr.hasimg) self = (*attr.img)[info.x][info.y][channel];
+    double color = self * attr.ka[channel];
+    double rate = attr.kd[channel] + attr.ks[channel] + attr.kt[channel];
+    if (dep >= 2 * MAX_DEP || rate * self < EPS) return color;
+    auto tt = mcSelect(r, info, attr);
     if (tt.first == 'd') {
       if (dep >= MAX_DEP) return color + self * rate * getDiffuse(r, info, attr);
       color += self * rate * max(getDiffuse(r, info, attr), trace(tt.second, dep + 1));

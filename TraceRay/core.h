@@ -44,7 +44,7 @@ public:
   Vector position;
   double radius;
   Attribute attribute;
-  
+  std::pair<int, int> getXY(Vector p, const Vector &normal);
   CollideInfo collide(const Ray &r);
 };
 

@@ -25,6 +25,7 @@ using std::max;
 extern const double EPS;
 extern const double INFD;
 extern const int THREAD_NUM;
+extern const double PI;
 
 inline double sqr(double x) {return x * x; }
 
