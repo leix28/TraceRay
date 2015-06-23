@@ -10,7 +10,7 @@
 
 const double EPS = 1e-8;
 const double INFD = 1e10;
-const int THREAD_NUM = 12;
+const int THREAD_NUM = 16;
 const double PI = 3.1415926536;
 
 Vector::Vector() {
