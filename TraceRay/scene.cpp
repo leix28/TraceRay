@@ -139,7 +139,7 @@ void Scene::thread() {
     if (py == camera.pixWidth) {
       px++;
       py = 0;
-      printf("%d\n", px);
+      printf("%d %d\n", channel, px);
     }
     mtx.unlock();
     auto rv = camera.getRay(x, y);

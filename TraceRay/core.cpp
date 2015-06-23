@@ -146,8 +146,10 @@ Ray transparent(const Ray &in, const Vector &position, const Vector &normal, con
     tra.direction = 1 / index * in.direction - (1 / index * innerProduct(in.direction, normal) + cosTheta) * normal;
     tra.direction = tra.direction / norm(tra.direction);
     tra.inside = !in.inside;
+    return tra;
+  } else {
+    return reflect(in, position, normal);
   }
-  return tra;
 }
 
 Ray diffuse(const Ray &in, const Vector &position, const Vector &normal) {

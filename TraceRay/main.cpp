@@ -12,16 +12,16 @@
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-  scene.MC_NUM = 200;
+  scene.MC_NUM = 100;
   
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
-  scene.camera.pixHeight = 1000;
-  scene.camera.pixWidth = 1000;
+  scene.camera.pixHeight = 800;
+  scene.camera.pixWidth = 800;
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
   scene.camera.aperture = 0.001;
-  scene.camera.sample = 1;
+  scene.camera.sample = 2;
   scene.camera.dis = 4;
   
   scene.MAX_DEP = 5;
