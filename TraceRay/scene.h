@@ -26,7 +26,7 @@ public:
   Rect light;
   int lightSample;
   
-  double trace(const Ray &r, int dep);
+  double trace(const Ray &r, int dep, double ef);
   std::pair<CollideInfo, Attribute> getCollide(const Ray &r);
   std::pair<char, Ray> mcSelect(const Ray &r, const CollideInfo &info, const Attribute &attr);
   double getDiffuse(const Ray &r, const CollideInfo &info, const Attribute &attr);

@@ -9,8 +9,9 @@
 #include "foundation.h"
 
 const double EPS = 1e-8;
+const double EPS_LOOSE = 1e-3;
 const double INFD = 1e10;
-const int THREAD_NUM = 16;
+const int THREAD_NUM = 8;
 const double PI = 3.1415926536;
 
 Vector::Vector() {

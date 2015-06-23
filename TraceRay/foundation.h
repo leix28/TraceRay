@@ -23,6 +23,7 @@ using std::make_pair;
 using std::max;
 
 extern const double EPS;
+extern const double EPS_LOOSE;
 extern const double INFD;
 extern const int THREAD_NUM;
 extern const double PI;

@@ -95,7 +95,7 @@ double Scene::getDiffuse(const Ray &r, const CollideInfo &info, const Attribute 
   return color;
 }
 
-double Scene::trace(const Ray &r, int dep) {
+double Scene::trace(const Ray &r, int dep, double ef) {
   CollideInfo info;
   Attribute attr;
   auto tmp = getCollide(r);
@@ -113,13 +113,13 @@ double Scene::trace(const Ray &r, int dep) {
     if (attr.hasimg) self = (*attr.img)[info.x][info.y][channel];
     double color = self * attr.ka[channel];
     double rate = attr.kd[channel] + attr.ks[channel] + attr.kt[channel];
-    if (dep >= 2 * MAX_DEP || rate * self < EPS) return color;
+    if (dep >= 2 * MAX_DEP || rate * self * ef < EPS_LOOSE) return color;
     auto tt = mcSelect(r, info, attr);
     if (tt.first == 'd') {
       if (dep >= MAX_DEP) return color + self * rate * getDiffuse(r, info, attr);
-      color += self * rate * max(getDiffuse(r, info, attr), trace(tt.second, dep + 1));
+      color += self * rate * max(getDiffuse(r, info, attr), trace(tt.second, dep + 1, self * rate * ef));
     } else {
-      color += self * rate * trace(tt.second, dep + 1);
+      color += self * rate * trace(tt.second, dep + 1, self * rate * ef);
     }
     return color;
   }
@@ -144,11 +144,23 @@ void Scene::thread() {
     mtx.unlock();
     auto rv = camera.getRay(x, y);
     for (const auto &r : rv) {
+      double tot = 0;
+      int cnt = 0;
+      int flag = 0;
       for (int i = 0; i < MC_NUM; i++) {
-        image[x][y][channel] += trace(r, 0);
+        double bef = cnt ? tot / cnt : -1;
+        double now = trace(r, 0, 1);
+        tot += now;
+        cnt++;
+        if (fabs(now - bef) < EPS_LOOSE) {
+          flag++;
+          if (flag == 2) break;
+        } else
+          flag = 0;
       }
+      image[x][y][channel] += tot / cnt;
     }
-    image[x][y][channel] = image[x][y][channel] / rv.size() / MC_NUM;
+    image[x][y][channel] = image[x][y][channel] / rv.size();
   }
 }
 
