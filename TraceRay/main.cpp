@@ -112,7 +112,7 @@ int main(int argc, const char * argv[]) {
   attr.kt = Vector(0, 0, 0);
   attr.loadImg("marble.png");
   insertBox(scene.item, Vector(1, 0, 4), Vector(2, 0, -2), Vector(0, 4, 0), Vector(2, 0, 2), attr);
-  insertBox(scene.item, Vector(5, 0, 7), Vector(2, 0, 0), Vector(0, 3, 0), Vector(0, 0, 2), attr);
+  insertBox(scene.item, Vector(7, 0, 6), Vector(2, 0, 1), Vector(0, 3, 0), Vector(-1, 0, 2), attr);
   
   Rect lit;
   lit.position = Vector(3.5, 9.999, 3.5);
@@ -123,7 +123,7 @@ int main(int argc, const char * argv[]) {
   lit.attribute.ks = Vector(0, 0, 0);
   lit.attribute.kt = Vector(0, 0, 0);
   scene.light = lit;
-  scene.lightSample = 4;
+  scene.lightSample = 8;
 
   scene.render();
   scene.save("out.png");
