@@ -12,7 +12,7 @@
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-  scene.MC_NUM = 100;
+  scene.MC_NUM = 300;
 
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
@@ -21,7 +21,7 @@ int main(int argc, const char * argv[]) {
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
   scene.camera.aperture = 0.001;
-  scene.camera.sample = 1;
+  scene.camera.sample = 3;
   scene.camera.dis = 4;
 
   scene.MAX_DEP = 5;
@@ -123,7 +123,7 @@ int main(int argc, const char * argv[]) {
   lit.attribute.ks = Vector(0, 0, 0);
   lit.attribute.kt = Vector(0, 0, 0);
   scene.light = lit;
-  scene.lightSample = 8;
+  scene.lightSample = 10;
 
   scene.render();
   scene.save("out.png");

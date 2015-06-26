@@ -11,19 +11,19 @@
 
 void Scene::save(std::string filename) {
   assert(image.size() && image[0].size());
-  
+
   int h = (int)image.size();
   int w = (int)image[0].size();
-  
+
   cv::Mat out(h, w, CV_64FC3);
-  
+
   for (auto i = 0; i < h; i++)
     for (auto j = 0; j < w; j++) {
       out.at<double>(i * w * 3 + j * 3) = image[i][j][2] * 256;
       out.at<double>(i * w * 3 + j * 3 + 1) = image[i][j][1] * 256;
       out.at<double>(i * w * 3 + j * 3 + 2) = image[i][j][0] * 256;
     }
-  
+
   imwrite(filename.c_str(), out);
 }
 
@@ -74,24 +74,25 @@ std::pair<char, Ray> Scene::mcSelect(const Ray &r, const CollideInfo &info, cons
 double Scene::getDiffuse(const Ray &r, const CollideInfo &info, const Attribute &attr) {
   if (r.inside) return 0;
   double color = 0;
-  double rate = 1.0 / sqr(lightSample + 1);
-  for (int i = 0; i <= lightSample; i++)
-    for (int j = 0; j <= lightSample; j++) {
-      Vector p = (light.position + (double)i / lightSample * light.dx + (double)j / lightSample * light.dy);
-      Ray t;
-      t.inside = 0;
-      t.position = r.position + info.distance * r.direction;
-      t.direction = p - t.position;
-      t.direction = t.direction / norm(t.direction);
-      Vector dlt = p - t.position;
+  double rate = 1.0 / lightSample;
+  for (int i = 0; i <= lightSample; i++) {
+    double dx = (double)rand() / RAND_MAX;
+    double dy = (double)rand() / RAND_MAX;
+    Vector p = (light.position + dx * light.dx + dy * light.dy);
+    Ray t;
+    t.inside = 0;
+    t.position = r.position + info.distance * r.direction;
+    t.direction = p - t.position;
+    t.direction = t.direction / norm(t.direction);
+    Vector dlt = p - t.position;
 
-      double d = getCollide(t).first.distance;
-      if (d < 0 || d > norm(dlt)) {
-        double ang = innerProduct(dlt / norm(dlt), info.normal);
-        if (ang > 0)
-          color += light.attribute.ka[channel] * rate * ang;
-      }
+    double d = getCollide(t).first.distance;
+    if (d < 0 || d > norm(dlt)) {
+      double ang = innerProduct(dlt / norm(dlt), info.normal);
+      if (ang > 0)
+        color += light.attribute.ka[channel] * rate * ang;
     }
+  }
   return color;
 }
 
@@ -99,7 +100,7 @@ double Scene::trace(const Ray &r, int dep, double ef) {
   CollideInfo info;
   Attribute attr;
   auto tmp = getCollide(r);
-  
+
   info = tmp.first;
   attr = tmp.second;
 
@@ -107,7 +108,7 @@ double Scene::trace(const Ray &r, int dep, double ef) {
   if (lit > 0 && lit < info.distance) {
     return light.attribute.ka[channel];
   }
-  
+
   if (info.distance > 0) {
     double self = 1;
     if (attr.hasimg) self = (*attr.img)[info.x][info.y][channel];
@@ -167,7 +168,7 @@ void Scene::thread() {
 void Scene::render() {
   image.clear();
   image.resize(camera.pixHeight, std::vector<Vector>(camera.pixWidth));
-  
+
   std::thread *pool = new std::thread[THREAD_NUM];
   for (int c = 0; c < 3; c++) {
     px = 0;

@@ -32,14 +32,15 @@ std::vector<Ray> Camera::getRay(int row, int col) {
   
   
   target = p + d * dis / innerProduct(d, n);
-  for (int i = -sample; i <= sample; i++)
-    for (int j = -sample; j <= sample; j++) {
-      r.position = getFilm((double)row / pixHeight + aperture * i / sample, (double)col / pixWidth + aperture * j / sample);
-      r.direction = target - r.position;
-      assert(norm(r.direction) > EPS);
-      r.direction = r.direction / norm(r.direction);
-      r.inside = 0;
-      rv.push_back(r);
-    }
+  for (int i = 0; i < sample; i++) {
+    double dx = (double)rand() / RAND_MAX * 2 - 1;
+    double dy = (double)rand() / RAND_MAX * 2 - 1;
+    r.position = getFilm((double)row / pixHeight + aperture * dx, (double)col / pixWidth + aperture * dy);
+    r.direction = target - r.position;
+    assert(norm(r.direction) > EPS);
+    r.direction = r.direction / norm(r.direction);
+    r.inside = 0;
+    rv.push_back(r);
+  }
   return rv;
 }
