@@ -12,7 +12,7 @@
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-  scene.MC_NUM = 300;
+  scene.MC_NUM = 100;
 
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
@@ -20,8 +20,8 @@ int main(int argc, const char * argv[]) {
   scene.camera.pixWidth = 1000;
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
-  scene.camera.aperture = 0.001;
-  scene.camera.sample = 3;
+  scene.camera.aperture = 0.007;
+  scene.camera.sample = 20;
   scene.camera.dis = 4;
 
   scene.MAX_DEP = 5;
@@ -124,8 +124,12 @@ int main(int argc, const char * argv[]) {
   lit.attribute.kt = Vector(0, 0, 0);
   scene.light = lit;
   scene.lightSample = 10;
-
-  scene.render();
-  scene.save("out.png");
+  for (int i = 1; i < 5; i ++) {
+    scene.camera.dis = i;
+    scene.render();
+    std::string name = "0.png";
+    name[0] = '0' + i;
+    scene.save(name);
+  }
   return 0;
 }
