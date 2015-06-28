@@ -122,7 +122,7 @@ double Scene::trace(const Ray &r, int dep, double ef) {
     auto tt = mcSelect(r, info, attr);
     if (tt.first == 'd') {
       if (dep >= MAX_DEP) return color + self * rate * getDiffuse(r, info, attr);
-      color += self * rate * max(getDiffuse(r, info, attr), trace(tt.second, dep + 1, self * rate * ef));
+      color += self * rate * (getDiffuse(r, info, attr) + trace(tt.second, dep + 1, self * rate * ef));
     } else {
       color += self * rate * trace(tt.second, dep + 1, self * rate * ef);
     }
