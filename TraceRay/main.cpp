@@ -12,7 +12,7 @@
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-  scene.MC_NUM = 100;
+  scene.MC_NUM = 500;
 
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
@@ -20,8 +20,8 @@ int main(int argc, const char * argv[]) {
   scene.camera.pixWidth = 1000;
   scene.camera.filmHeight = Vector(0, -10, 0);
   scene.camera.filmWidth = Vector(10, 0, 0);
-  scene.camera.aperture = 0.007;
-  scene.camera.sample = 20;
+  scene.camera.aperture = 0.001;
+  scene.camera.sample = 10;
   scene.camera.dis = 4;
 
   scene.MAX_DEP = 5;
@@ -81,39 +81,13 @@ int main(int argc, const char * argv[]) {
   rect->attribute.ka = Vector(0, 0, 0);
   rect->attribute.kt = Vector(0, 0, 0);
   scene.item.push_back(make_pair(RECT, rect));
-  
-  
-  Ball *ball = new Ball();
-  ball->position = Vector(7, 7.5, 7);
-  ball->radius = 2;
-  ball->attribute.ks = Vector(0, 0, 0);
-  ball->attribute.kd = Vector(0, 0, 0);
-  ball->attribute.ka = Vector(0, 0, 0);
-  ball->attribute.kt = Vector(1, 1, 1);
-  ball->attribute.index = 1.7;
-  scene.item.push_back(make_pair(BALL, ball));
 
-  ball = new Ball();
-  ball->position = Vector(3, 5.5, 4);
-  ball->radius = 1.5;
-  ball->attribute.ks = Vector(0, 0, 0);
-  ball->attribute.kd = Vector(1, 1, 1);
-  ball->attribute.ka = Vector(0, 0, 0);
-  ball->attribute.kt = Vector(0, 0, 0);
-  ball->attribute.index = 1.7;
-  ball->attribute.loadImg("maoxian.png");
-  scene.item.push_back(make_pair(BALL, ball));
 
-  
-  Attribute attr;
-  attr.ks = Vector(0.2, 0.2, 0.2);
-  attr.kd = Vector(1, 1, 1);
-  attr.ka = Vector(0, 0, 0);
-  attr.kt = Vector(0, 0, 0);
-  attr.loadImg("marble.png");
-  insertBox(scene.item, Vector(1, 0, 4), Vector(2, 0, -2), Vector(0, 4, 0), Vector(2, 0, 2), attr);
-  insertBox(scene.item, Vector(7, 0, 6), Vector(2, 0, 1), Vector(0, 3, 0), Vector(-1, 0, 2), attr);
-  
+  Obj *obj = new Obj();
+  obj->load("bunny.obj", Vector(0.2, -0.02, 0.2), 30);
+  obj->attribute.kt = Vector(0.9, 0.7, 0.2);
+  scene.item.push_back(make_pair(OBJ, obj));
+
   Rect lit;
   lit.position = Vector(3.5, 9.999, 3.5);
   lit.dx = Vector(3, 0, 0);
@@ -123,13 +97,10 @@ int main(int argc, const char * argv[]) {
   lit.attribute.ks = Vector(0, 0, 0);
   lit.attribute.kt = Vector(0, 0, 0);
   scene.light = lit;
-  scene.lightSample = 10;
-  for (int i = 1; i < 5; i ++) {
-    scene.camera.dis = i;
-    scene.render();
-    std::string name = "0.png";
-    name[0] = '0' + i;
-    scene.save(name);
-  }
+  scene.lightSample = 1;
+
+  scene.render();
+  scene.save("out.png");
+
   return 0;
 }
