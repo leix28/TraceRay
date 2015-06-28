@@ -43,6 +43,10 @@ std::pair<CollideInfo, Attribute> Scene::getCollide(const Ray &r) {
       Rect *rect = (Rect*)itm.second;
       tattr = rect->attribute;
       tmp = rect->collide(r);
+    } else if (itm.first == OBJ) {
+      Obj *obj = (Obj*)itm.second;
+      tattr = obj->attribute;
+      tmp = obj->collide(r);
     } else {
       assert(0);
     }

@@ -10,6 +10,9 @@
 #include "opencv2/opencv.hpp"
 const char RECT = 'r';
 const char BALL = 'b';
+const char OBJ = 'o';
+const int KDT_DEP = 14;
+const int BUFSIZE = 100;
 
 Ray::Ray() {inside = 0; }
 Attribute::Attribute() {index = 1; }
@@ -55,7 +58,7 @@ CollideInfo Ball::collide(const Ray &r) {
   CollideInfo info;
   info.distance = -1;
   Vector v = r.position - position;
-  
+
   if (r.inside) {
     if (norm(r.position - position) > radius + EPS) return info;
     double tmp = sqr(innerProduct(r.direction, v)) - innerProduct(v, v) + sqr(radius);
@@ -75,7 +78,7 @@ CollideInfo Ball::collide(const Ray &r) {
     return info;
   } else {
     if (innerProduct(v, r.direction) > 0) return info;
-    
+
     if (sqr(innerProduct(r.direction, v)) - innerProduct(v, v) + sqr(radius) < 0) return info;
     info.distance = -innerProduct(r.direction, v) - sqrt(sqr(innerProduct(r.direction, v)) - innerProduct(v, v) + sqr(radius));
     info.normal = r.position + info.distance * r.direction - position;
@@ -93,23 +96,23 @@ CollideInfo Ball::collide(const Ray &r) {
 CollideInfo Rect::collide(const Ray &r) {
   CollideInfo info;
   info.distance = -1;
-  
+
   Vector v = position - r.position;
   Vector n = crossProduct(dx, dy);
   n = n / norm(n);
-  
+
   if (r.inside) n = -n;
-  
+
   if (innerProduct(n, r.direction) >= 0) return info;
-  
+
   info.distance = innerProduct(n, v) / innerProduct(r.direction, n);
   if (info.distance < EPS) {
     info.distance = -1;
     return info;
   }
-  
+
   Vector p = r.position + info.distance * r.direction;
-  
+
   double lx = norm(dx);
   double ly = norm(dy);
   double ax = innerProduct(p - position, dx / lx);
@@ -127,6 +130,151 @@ CollideInfo Rect::collide(const Ray &r) {
     info.y %= (*attribute.img)[0].size();
   }
   return info;
+}
+
+CollideInfo Tri::collide(const Ray &r) {
+  CollideInfo info;
+  info.distance = -1;
+
+  Vector n = crossProduct(dx, dy);
+  n = n / norm(n);
+
+  if (r.inside) n = -n;
+
+  if (innerProduct(n, r.direction) >= 0) return info;
+
+  Vector e1 = -dx, e2 = -dy, s = position - r.position;
+  Vector v = Vector(det(s, e1, e2), det(r.direction, s, e2), det(r.direction, e1, s));
+  v = v / det(r.direction, e1, e2);
+
+  if (v.x > EPS && 0 <= v.y && v.y <= 1 && 0 <= v.z && v.z <= 1 && v.y + v.z <= 1) {
+    info.distance = v.x;
+    info.normal = n;
+    return info;
+  } else {
+    info.distance = -1;
+    return info;
+  }
+}
+
+void Obj::insert(int id, const Tri &t, int dep, Vector mn, Vector mx) {
+  if (dep == KDT_DEP - 1) {
+    tri[id].push_back(t);
+    return;
+  }
+  int channel = dep % 3;
+  double mid = (mn[channel] + mx[channel]) / 2;
+  if (t.mn[channel] < mid) {
+    double bak = mx[channel];
+    mx[channel] = mid;
+    insert(id * 2, t, dep + 1, mn, mx);
+    mx[channel] = bak;
+  }
+  if (t.mx[channel] > mid) {
+    double bak = mn[channel];
+    mn[channel] = mid;
+    insert(id * 2 + 1, t, dep + 1, mn, mx);
+    mn[channel] = bak;
+  }
+}
+
+void Obj::load(std::string filename, const Vector &move, double scale) {
+  tri = new std::vector<Tri>[1 << KDT_DEP];
+  char buffer[BUFSIZE];
+  FILE *file = fopen(filename.c_str(), "r");
+  std::vector<std::string> vertexIn;
+  std::vector<std::string> faceIn;
+  while (fgets(buffer, BUFSIZE, file) != NULL) {
+    int ptr = 0;
+    while (buffer[ptr] != 0 && buffer[ptr] != 'v' && buffer[ptr] != 'f' && buffer[ptr] != '#') ptr++;
+    if (buffer[ptr] == 'v') vertexIn.push_back(std::string(buffer));
+    if (buffer[ptr] == 'f') faceIn.push_back(std::string(buffer));
+  }
+  fclose(file);
+
+  int vertexN = (int)vertexIn.size();
+  std::vector<Vector> vertex(vertexN);
+
+  mn = Vector(INFD, INFD, INFD);
+  mx = Vector(-INFD, -INFD, -INFD);
+  for (int i = 0; i < vertexN; i++) {
+    sscanf(vertexIn[i].c_str(), "%*s%lf%lf%lf", &vertex[i][0], &vertex[i][1], &vertex[i][2]);
+    vertex[i] = (vertex[i] + move) * scale;
+    for (int j = 0; j < 3; j++) {
+      mn[j] = fmin(mn[j], vertex[i][j]);
+      mx[j] = fmax(mx[j], vertex[i][j]);
+    }
+  }
+  for (auto s : faceIn) {
+    int x, y, z;
+    Tri t;
+    sscanf(s.c_str(), "%*s%d%d%d", &x, &y, &z);
+    x--; y--; z--;
+    t.position = vertex[x];
+    t.dx = vertex[y] - vertex[x];
+    t.dy = vertex[z] - vertex[x];
+    for (int i = 0; i < 3; i++) {
+      t.mn[i] = fmin(fmin(vertex[x][i], vertex[y][i]), vertex[z][i]);
+      t.mx[i] = fmax(fmax(vertex[x][i], vertex[y][i]), vertex[z][i]);
+    }
+    insert(1, t, 0, mn, mx);
+  }
+}
+
+bool Obj::hitbox(Vector mn, Vector mx, const Ray &r) {
+  for (int i = 0; i < 3; i++) {
+    double t = (mn[i] - r.position[i]) / r.direction[i];
+    if (t < 0) continue;
+    Vector p = r.position + r.direction * t;
+    if (mn.x - EPS <= p.x && p.x <= mx.x + EPS && mn.y - EPS <= p.y && p.y <= mx.y + EPS && mn.z - EPS <= p.z && p.z <= mx.z + EPS) return 1;
+  }
+  for (int i = 0; i < 3; i++) {
+    double t = (mx[i] - r.position[i]) / r.direction[i];
+    if (t < 0) continue;
+    Vector p = r.position + r.direction * t;
+    if (mn.x - EPS <= p.x && p.x <= mx.x + EPS && mn.y - EPS <= p.y && p.y <= mx.y + EPS && mn.z - EPS <= p.z && p.z <= mx.z + EPS) return 1;
+  }
+  return 0;
+}
+
+CollideInfo Obj::search(int id, const Ray &r, int dep, Vector mn, Vector mx) {
+  if (!hitbox(mn, mx, r)) return CollideInfo();
+  int channel = dep % 3;
+  if (dep == KDT_DEP - 1) {
+    CollideInfo info;
+    for (auto &t : tri[id]) {
+      auto tmp = t.collide(r);
+      if (tmp.distance > 0 && (tmp.distance < info.distance || info.distance < 0))
+        info = tmp;
+    }
+    return info;
+  } else {
+    double mid = (mn[channel] + mx[channel]) / 2;
+    double bak;
+    if (r.position[channel] < mid) {
+      bak = mx[channel];
+      mx[channel] = mid;
+      auto info = search(id * 2, r, dep + 1, mn, mx);
+      mx[channel] = bak;
+      if (info.distance > 0) return info;
+      bak = mn[channel];
+      mn[channel] = mid;
+      return search(id * 2 + 1, r, dep + 1, mn, mx);
+    } else {
+      bak = mn[channel];
+      mn[channel] = mid;
+      auto info = search(id * 2 + 1, r, dep + 1, mn, mx);
+      mn[channel] = bak;
+      if (info.distance > 0) return info;
+      bak = mx[channel];
+      mx[channel] = mid;
+      return search(id * 2, r, dep + 1, mn, mx);
+    }
+  }
+}
+
+CollideInfo Obj::collide(const Ray &r) {
+  return search(1, r, 0, mn, mx);
 }
 
 Ray reflect(const Ray &in, const Vector &position, const Vector &normal) {
@@ -175,21 +323,21 @@ void insertBox(std::vector< std::pair<char, void*> > &item, const Vector &p, con
   rect->dx = y;
   rect->dy = x;
   item.push_back(make_pair(RECT, rect));
-  
+
   rect = new Rect();
   rect->attribute = attr;
   rect->position = p;
   rect->dx = x;
   rect->dy = z;
   item.push_back(make_pair(RECT, rect));
-  
+
   rect = new Rect();
   rect->attribute = attr;
   rect->position = p;
   rect->dx = z;
   rect->dy = y;
   item.push_back(make_pair(RECT, rect));
-  
+
   Vector pp = p + x + y + z;
   rect = new Rect();
   rect->attribute = attr;
@@ -197,19 +345,19 @@ void insertBox(std::vector< std::pair<char, void*> > &item, const Vector &p, con
   rect->dx = -x;
   rect->dy = -y;
   item.push_back(make_pair(RECT, rect));
-  
+
   rect = new Rect();
   rect->attribute = attr;
   rect->position = pp;
   rect->dx = -z;
   rect->dy = -x;
   item.push_back(make_pair(RECT, rect));
-  
+
   rect = new Rect();
   rect->attribute = attr;
   rect->position = pp;
   rect->dx = -y;
   rect->dy = -z;
   item.push_back(make_pair(RECT, rect));
-  
+
 }

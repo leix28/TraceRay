@@ -40,6 +40,7 @@ public:
   double x, y, z;
 };
 
+double det(const Vector &a, const Vector &b, const Vector &c);
 double norm(const Vector &v);
 Vector operator - (const Vector &a);
 Vector operator + (const Vector &a, const Vector &b);

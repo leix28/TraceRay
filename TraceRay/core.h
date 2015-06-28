@@ -14,6 +14,9 @@
 
 extern const char RECT;
 extern const char BALL;
+extern const char OBJ;
+extern const int KDT_DEP;
+extern const int BUFSIZE;
 
 class Ray {
 public:
@@ -34,7 +37,7 @@ public:
 
 class CollideInfo {
 public:
-  double distance, index;
+  double distance = -1, index;
   int x, y;
   Vector normal;
 };
@@ -53,6 +56,24 @@ public:
   Vector position, dx, dy;
   Attribute attribute;
 
+  CollideInfo collide(const Ray &r);
+};
+
+class Tri {
+public:
+  Vector position, dx, dy, mn, mx;
+  CollideInfo collide(const Ray &r);
+};
+
+class Obj {
+public:
+  Vector mn, mx;
+  std::vector<Tri> *tri;
+  Attribute attribute;
+  bool hitbox(Vector mn, Vector mx, const Ray &r);
+  void insert(int id, const Tri &tri, int dep, Vector mn, Vector mx);
+  void load(std::string filename, const Vector &move, double scale);
+  CollideInfo search(int id, const Ray &r, int dep, Vector mn, Vector mx);
   CollideInfo collide(const Ray &r);
 };
 

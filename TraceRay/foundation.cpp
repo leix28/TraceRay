@@ -14,6 +14,10 @@ const double INFD = 1e10;
 const int THREAD_NUM = 8;
 const double PI = 3.1415926536;
 
+double det(const Vector &a, const Vector &b, const Vector &c) {
+  return a.x * b.y * c.z + a.y * b.z * c.x + a.z * b.x * c.y - a.z * b.y * c.x - a.y * b.x * c.z - a.x * b.z * c.y;
+}
+
 Vector::Vector() {
   x = y = z = 0;
 }
