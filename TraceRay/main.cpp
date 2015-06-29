@@ -12,7 +12,7 @@
 Scene scene;
 
 int main(int argc, const char * argv[]) {
-  scene.MC_NUM = 500;
+  scene.MC_NUM = 100;
 
   scene.camera.position = Vector(5, 5, 20);
   scene.camera.filmCenter = Vector(5, 5, 10);
