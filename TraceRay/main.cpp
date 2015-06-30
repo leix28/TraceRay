@@ -83,9 +83,17 @@ int main(int argc, const char * argv[]) {
   scene.item.push_back(make_pair(RECT, rect));
 
 
+//  Obj *obj = new Obj();
+//  obj->load("bunny.obj", Vector(0.15, -0.0333, 0.15), 40);
+//  obj->attribute.kd = Vector(0.8, 0.8, 0.5);
+//  obj->attribute.ka = Vector(0.2, 0.2, 0.2);
+//  obj->attribute.index = 1.7;
+//  scene.item.push_back(make_pair(OBJ, obj));
+
   Obj *obj = new Obj();
-  obj->load("bunny.obj", Vector(0.2, -0.02, 0.2), 30);
-  obj->attribute.kt = Vector(0.9, 0.7, 0.2);
+  obj->load("kitten.obj", Vector(51.21, 3.16, 60.80), 0.1);
+  obj->attribute.kt = Vector(1, 0.8, 0.5);
+  obj->attribute.index = 1.7;
   scene.item.push_back(make_pair(OBJ, obj));
 
   Rect lit;

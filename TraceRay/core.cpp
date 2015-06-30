@@ -144,6 +144,10 @@ CollideInfo Tri::collide(const Ray &r) {
   if (innerProduct(n, r.direction) >= 0) return info;
 
   Vector e1 = -dx, e2 = -dy, s = position - r.position;
+  if (r.inside) {
+    e1 = -dy;
+    e2 = -dx;
+  }
   Vector v = Vector(det(s, e1, e2), det(r.direction, s, e2), det(r.direction, e1, s));
   v = v / det(r.direction, e1, e2);
 
@@ -274,7 +278,10 @@ CollideInfo Obj::search(int id, const Ray &r, int dep, Vector mn, Vector mx) {
 }
 
 CollideInfo Obj::collide(const Ray &r) {
-  return search(1, r, 0, mn, mx);
+  auto tmp = search(1, r, 0, mn, mx);
+  tmp.index = attribute.index;
+  if (r.inside) tmp.index = 1 / tmp.index;
+  return tmp;
 }
 
 Ray reflect(const Ray &in, const Vector &position, const Vector &normal) {
